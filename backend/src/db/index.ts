@@ -1,6 +1,6 @@
 import sequelize from './config';
 import { DataTypes } from 'sequelize';
-import { IDeliveryNote } from './types';
+import { IDeliveryNote } from '../types';
 
 const DeliveryNote = sequelize.define<IDeliveryNote>(
   'Nota',
