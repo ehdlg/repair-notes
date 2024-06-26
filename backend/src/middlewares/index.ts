@@ -7,9 +7,9 @@ export function notFound() {
 
 export function errorHandler(
   error: HTTPError | Error,
-  _: Request,
+  _req: Request,
   res: Response,
-  __: NextFunction
+  _next: NextFunction // eslint-disable-line @typescript-eslint/no-unused-vars
 ) {
   let status = 500;
   const message = error.message || 'Algo salió mal';
