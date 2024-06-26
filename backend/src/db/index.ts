@@ -65,7 +65,7 @@ export async function initDb() {
   try {
     await sequelize.sync();
   } catch (error) {
-    throw new Error('There was an error connecting to the dabase');
+    throw new Error('There was an error connecting to the database');
   }
 }
 
