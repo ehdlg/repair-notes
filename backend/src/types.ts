@@ -1,9 +1,20 @@
-import { CreationOptional, InferCreationAttributes, InferAttributes, Model } from 'sequelize';
+import {
+  CreationOptional,
+  InferCreationAttributes,
+  InferAttributes,
+  Model,
+  CreationAttributes,
+} from 'sequelize';
+
+export type ValidatedDataType = {
+  limit?: number;
+  offset?: number;
+} & Partial<CreationAttributes<IDeliveryNote>>;
 
 declare global {
   namespace Express {
     interface Request {
-      validatedData?: Record<string, any>;
+      validatedData?: ValidatedDataType;
     }
   }
 }
