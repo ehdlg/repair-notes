@@ -1,33 +1,74 @@
 import { CreationAttributes } from 'sequelize';
 import DeliveryNoteModel from '../db';
-import { IDeliveryNote } from '../db/types';
-import { DEFAULT_LIMIT, DEFAULT_OFFSET } from '../constants';
+import { IDeliveryNote } from '../types';
+import { Op } from 'sequelize';
 
 export default class DeliveryNote {
   static async getAll({
-    LIMIT = DEFAULT_LIMIT,
-    OFFSET = DEFAULT_OFFSET,
+    limit,
+    offset,
   }: {
-    LIMIT?: number;
-    OFFSET?: number;
-  }) {
+    limit: number;
+    offset: number;
+  }): Promise<IDeliveryNote[]> {
     const notes = await DeliveryNoteModel.findAll({
-      limit: LIMIT,
-      offset: OFFSET,
+      limit,
+      offset,
     });
 
     return notes;
   }
 
-  static async create(
-    newNote: CreationAttributes<IDeliveryNote>
-  ): Promise<IDeliveryNote> {
-    try {
-      const note = DeliveryNoteModel.create(newNote);
+  static async getOne(id: number): Promise<IDeliveryNote | null> {
+    const note = await DeliveryNoteModel.findByPk(id);
 
-      return note;
-    } catch (error) {
-      throw error;
-    }
+    return note;
+  }
+
+  static async getPending(): Promise<IDeliveryNote[]> {
+    const limitDate = new Date();
+    limitDate.setMonth(limitDate.getMonth() - 3);
+
+    const notes: IDeliveryNote[] = await DeliveryNoteModel.findAll({
+      where: {
+        entryDate: {
+          [Op.lte]: limitDate,
+        },
+        departureDate: {
+          [Op.is]: null,
+        },
+      },
+    });
+
+    return notes;
+  }
+
+  static async create(newNote: CreationAttributes<IDeliveryNote>): Promise<IDeliveryNote> {
+    const note = await DeliveryNoteModel.create(newNote);
+
+    return note;
+  }
+
+  static async delete(id: number) {
+    const deletedNote = await DeliveryNoteModel.destroy({
+      where: {
+        id,
+      },
+    });
+
+    return deletedNote;
+  }
+
+  static async update(
+    id: number,
+    updatedFields: Omit<Partial<CreationAttributes<IDeliveryNote>>, 'id'>
+  ): Promise<[affectedCount: number]> {
+    const updatedNote = DeliveryNoteModel.update(updatedFields, {
+      where: {
+        id,
+      },
+    });
+
+    return updatedNote;
   }
 }
