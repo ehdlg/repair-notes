@@ -58,6 +58,14 @@ const DeliveryNote = sequelize.define<IDeliveryNote>(
           throw new Error('No puede haber presupuesto si la máquina tiene garantía.');
         }
       },
+      checkDates() {
+        if (
+          this.departureDate != null &&
+          (this.departureDate as Date) <= (this.entryDate as Date)
+        ) {
+          throw new Error('La fecha de salida no puede ser posterior a la fecha de entrada');
+        }
+      },
     },
   }
 );
