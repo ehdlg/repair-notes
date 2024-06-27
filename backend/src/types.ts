@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-namespace */
 import {
   CreationOptional,
   InferCreationAttributes,
@@ -27,8 +28,8 @@ export interface IDeliveryNote
   model: string;
   malfunction: string;
   entryDate: CreationOptional<Date>;
-  departureDate: CreationOptional<Date>;
-  isRepaired: CreationOptional<boolean>;
+  departureDate: CreationOptional<Date> | null;
+  isRepaired: CreationOptional<boolean> | null;
   garanty: CreationOptional<boolean>;
-  budget: CreationOptional<number>;
+  budget: CreationOptional<number> | null;
 }
