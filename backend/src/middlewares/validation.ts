@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { validationResult, matchedData, query } from 'express-validator';
+import { validationResult, matchedData, query, param, body } from 'express-validator';
 
 export function validation(req: Request, res: Response, next: NextFunction) {
   const errors = validationResult(req);
@@ -17,7 +17,7 @@ export function validation(req: Request, res: Response, next: NextFunction) {
   return res.status(422).json({ errors: errorsMessages });
 }
 
-export const getRules = (() => {
+export const getAllRules = (() => {
   return [
     query('limit')
       .optional()
@@ -28,5 +28,103 @@ export const getRules = (() => {
       .optional()
       .isInt({ min: 0 })
       .withMessage('El offset debe ser un número mayor o igual a 0'),
+  ];
+})();
+
+export const idParamRule = (() => {
+  return [param('id').exists().isInt().withMessage('El ID proporcionado no es válido')];
+})();
+
+export const createRules = (() => {
+  return [
+    body('client').exists().withMessage('El nombre del cliente es obligatorio'),
+
+    body('phoneNumber')
+      .matches(/^\d{9}$/)
+      .withMessage('El número de teléfono debe tener exactamente 9 dígitos'),
+
+    body('model').exists().withMessage('El nombre o modelo de la máquina es obligatorio'),
+
+    body('malfunction')
+      .exists()
+      .withMessage('La descripción de la avería de la máquina es obligatoria'),
+
+    body('entryDate')
+      .optional()
+      .isDate()
+      .withMessage('La fecha de entrada debe ser una fecha válida'),
+
+    body('departureDate')
+      .optional()
+      .isDate()
+      .withMessage('La fecha de salida debe ser una fecha válida'),
+
+    body('garanty')
+      .optional()
+      .isBoolean()
+      .withMessage('El valor de la garantía debe ser un booleano (true o false)'),
+
+    body('isRepaired')
+      .optional()
+      .isBoolean()
+      .withMessage(
+        'El valor sobre si la máquina está reparada debe ser un booleano (true o false)'
+      ),
+
+    body('budget')
+      .optional()
+      .isFloat({ min: 1 })
+      .withMessage('El presupuesto debe ser un número mayor a 0'),
+  ];
+})();
+
+export const updateRules = (() => {
+  return [
+    body('client')
+      .optional()
+      .isString()
+      .withMessage('El nombre del cliente debe ser un texto válido'),
+
+    body('phoneNumber')
+      .optional()
+      .matches(/^\d{9}$/)
+      .withMessage('El número de teléfono debe tener exactamente 9 dígitos'),
+
+    body('model')
+      .optional()
+      .isString()
+      .withMessage('El nombre o modelo de la máquina debe ser un texto válido'),
+
+    body('malfunction')
+      .optional()
+      .isString()
+      .withMessage('La descripción de la avería de la máquina debe ser un texto válido'),
+
+    body('entryDate')
+      .optional()
+      .isDate()
+      .withMessage('La fecha de entrada debe ser una fecha válida'),
+
+    body('departureDate')
+      .optional()
+      .isDate()
+      .withMessage('La fecha de salida debe ser una fecha válida'),
+
+    body('garanty')
+      .optional()
+      .isBoolean()
+      .withMessage('El valor de la garantía debe ser un booleano (true o false)'),
+
+    body('isRepaired')
+      .optional()
+      .isBoolean()
+      .withMessage(
+        'El valor sobre si la máquina está reparada debe ser un booleano (true o false)'
+      ),
+
+    body('budget')
+      .optional()
+      .isFloat({ min: 1 })
+      .withMessage('El presupuesto debe ser un número mayor a 0'),
   ];
 })();
