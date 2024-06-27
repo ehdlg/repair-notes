@@ -51,12 +51,14 @@ export const createRules = (() => {
 
     body('entryDate')
       .optional()
-      .isDate()
+      .isISO8601()
+      .toDate()
       .withMessage('La fecha de entrada debe ser una fecha válida'),
 
     body('departureDate')
       .optional()
-      .isDate()
+      .isISO8601()
+      .toDate()
       .withMessage('La fecha de salida debe ser una fecha válida'),
 
     body('garanty')
@@ -102,12 +104,14 @@ export const updateRules = (() => {
 
     body('entryDate')
       .optional()
-      .isDate()
+      .isISO8601()
+      .toDate()
       .withMessage('La fecha de entrada debe ser una fecha válida'),
 
     body('departureDate')
       .optional()
-      .isDate()
+      .isISO8601()
+      .toDate()
       .withMessage('La fecha de salida debe ser una fecha válida'),
 
     body('garanty')
