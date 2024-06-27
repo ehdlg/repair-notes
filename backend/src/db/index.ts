@@ -51,6 +51,7 @@ const DeliveryNote = sequelize.define<IDeliveryNote>(
     },
   },
   {
+    timestamps: false,
     validate: {
       budgetIfGaranty() {
         if (this.garanty && null != this.budget) {
