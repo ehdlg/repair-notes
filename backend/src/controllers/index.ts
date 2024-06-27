@@ -29,13 +29,17 @@ export default class DeliveryNoteController {
 
       const note = await DeliveryNote.getOne(id);
 
+      if (null == note) {
+        throw new HTTPError({ status: 404, message: `Nota de entrega ${id} no encontrada` });
+      }
+
       return res.json(note);
     } catch (error) {
       next(error);
     }
   }
 
-  static async getPending(req: Request, res: Response, next: NextFunction) {
+  static async getPending(_: Request, res: Response, next: NextFunction) {
     try {
       const notes = await DeliveryNote.getPending();
 
@@ -48,7 +52,6 @@ export default class DeliveryNoteController {
   static async create(req: Request, res: Response, next: NextFunction) {
     try {
       const newNote = req.validatedData as CreationAttributes<IDeliveryNote>;
-
       const createdNote = await DeliveryNote.create(newNote);
 
       return res.status(201).json(createdNote);
@@ -60,6 +63,10 @@ export default class DeliveryNoteController {
   static async update(req: Request, res: Response, next: NextFunction) {
     try {
       const { id, ...updateFields } = req.validatedData as ValidatedDataType;
+
+      const noteExists = null != (await DeliveryNote.getOne(id as number));
+
+      if (!noteExists) throw new HTTPError({ status: 404, message: `Nota ${id} no encontrada` });
 
       const updatedNote = await DeliveryNote.update(
         id as number,
@@ -81,12 +88,12 @@ export default class DeliveryNoteController {
       }
 
       const deletedNote = await DeliveryNote.delete(id);
-      const info =
-        deletedNote > 0
-          ? `Nota de entrega ${id} borrada correctamente`
-          : `No existe la nota de entrega ${id}`;
 
-      return res.json({ info });
+      if (deletedNote < 1) {
+        throw new HTTPError({ message: `Nota de entrega ${id} no encontrada`, status: 404 });
+      }
+
+      return res.json({ info: 'Nota de entrega borrada' });
     } catch (error) {
       next(error);
     }
