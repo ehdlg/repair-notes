@@ -8,7 +8,7 @@ const RepairNote = sequelize.define<IReparirNote>(
     id: {
       primaryKey: true,
       autoIncrement: true,
-      type: DataTypes.INTEGER.UNSIGNED,
+      type: DataTypes.INTEGER,
     },
     client: {
       allowNull: false,
@@ -45,10 +45,10 @@ const RepairNote = sequelize.define<IReparirNote>(
       defaultValue: false,
       type: DataTypes.BOOLEAN,
     },
-    details:{
+    details: {
       allowNull: true,
       defaultValue: null,
-      type: DataTypes.TEXT
+      type: DataTypes.TEXT,
     },
     budget: {
       defaultValue: null,
