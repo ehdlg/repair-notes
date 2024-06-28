@@ -14,3 +14,7 @@ export const NAVBAR_ELEMENTS: { url: string; name: string }[] = [
     name: 'Notas de reparación pendientes',
   },
 ];
+
+export const DEFAULT_PAGE = 1;
+
+export const DEFAULT_SIZE = 50;
