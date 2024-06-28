@@ -45,6 +45,11 @@ const RepairNote = sequelize.define<IReparirNote>(
       defaultValue: false,
       type: DataTypes.BOOLEAN,
     },
+    details:{
+      allowNull: true,
+      defaultValue: null,
+      type: DataTypes.TEXT
+    },
     budget: {
       defaultValue: null,
       type: DataTypes.DOUBLE,

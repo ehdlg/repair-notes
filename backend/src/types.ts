@@ -30,6 +30,7 @@ export interface IReparirNote
   entryDate: CreationOptional<Date>;
   departureDate: CreationOptional<Date> | null;
   isRepaired: CreationOptional<boolean> | null;
+  details: CreationOptional<string> | null;
   garanty: CreationOptional<boolean>;
   budget: CreationOptional<number> | null;
 }
