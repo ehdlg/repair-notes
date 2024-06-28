@@ -1,5 +1,5 @@
 import { CreationAttributes } from 'sequelize';
-import DeliveryNoteModel from '../db';
+import RepairNoteModel from '../db';
 import { IReparirNote } from '../types';
 import { PENDING_FILTER } from '../constants';
 
@@ -11,23 +11,23 @@ export default class RepairNote {
     limit: number;
     offset: number;
   }): Promise<{ rows: IReparirNote[]; count: number }> {
-    const notes = await DeliveryNoteModel.findAndCountAll({
+    const results = await RepairNoteModel.findAndCountAll({
       limit,
       offset,
       order: [['id', 'DESC']],
     });
 
-    return notes;
+    return results;
   }
 
   static async getOne(id: number): Promise<IReparirNote | null> {
-    const note = await DeliveryNoteModel.findByPk(id);
+    const note = await RepairNoteModel.findByPk(id);
 
     return note;
   }
 
   static async getPending(): Promise<{ rows: IReparirNote[]; count: number }> {
-    const results = await DeliveryNoteModel.findAndCountAll({
+    const results = await RepairNoteModel.findAndCountAll({
       where: PENDING_FILTER,
     });
 
@@ -35,13 +35,13 @@ export default class RepairNote {
   }
 
   static async create(newNote: CreationAttributes<IReparirNote>): Promise<IReparirNote> {
-    const note = await DeliveryNoteModel.create(newNote);
+    const note = await RepairNoteModel.create(newNote);
 
     return note;
   }
 
   static async delete(id: number) {
-    const deletedNote = await DeliveryNoteModel.destroy({
+    const deletedNote = await RepairNoteModel.destroy({
       where: {
         id,
       },
@@ -54,7 +54,7 @@ export default class RepairNote {
     id: number,
     updatedFields: Omit<Partial<CreationAttributes<IReparirNote>>, 'id'>
   ): Promise<[affectedCount: number]> {
-    const updatedNote = DeliveryNoteModel.update(updatedFields, {
+    const updatedNote = RepairNoteModel.update(updatedFields, {
       where: {
         id,
       },
@@ -64,8 +64,8 @@ export default class RepairNote {
   }
 
   static async getStadistics() {
-    const notesCount = await DeliveryNoteModel.count();
-    const pendingNotesCount = await DeliveryNoteModel.count({
+    const notesCount = await RepairNoteModel.count();
+    const pendingNotesCount = await RepairNoteModel.count({
       where: PENDING_FILTER,
     });
 

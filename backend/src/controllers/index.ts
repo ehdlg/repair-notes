@@ -5,7 +5,7 @@ import { HTTPError } from '../errors';
 import { CreationAttributes } from 'sequelize';
 import { IReparirNote, ValidatedDataType } from '../types';
 
-export default class DeliveryNoteController {
+export default class RepairNoteController {
   static async getAll(req: Request, res: Response, next: NextFunction) {
     try {
       const limit = req.validatedData?.limit || DEFAULT_LIMIT;

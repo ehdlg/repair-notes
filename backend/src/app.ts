@@ -1,6 +1,6 @@
 import express from 'express';
 import { initDb } from './db';
-import deliveryNoteRoute from './routes/';
+import repairNoteRoute from './routes/';
 import { errorHandler, notFound } from './middlewares';
 import 'dotenv/config';
 
@@ -19,7 +19,7 @@ async function main() {
 
 app.use(express.json());
 
-app.use('/api', deliveryNoteRoute);
+app.use('/api', repairNoteRoute);
 
 app.use(notFound);
 

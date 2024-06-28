@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import DeliveryNoteController from '../controllers';
+import RepairNoteController from '../controllers';
 import {
   validation,
   createRules,
@@ -10,16 +10,16 @@ import {
 
 const router = Router();
 
-router.get('/', getAllRules, validation, DeliveryNoteController.getAll);
+router.get('/', getAllRules, validation, RepairNoteController.getAll);
 
-router.post('/', createRules, validation, DeliveryNoteController.create);
+router.post('/', createRules, validation, RepairNoteController.create);
 
-router.get('/pending', DeliveryNoteController.getPending);
+router.get('/pending', RepairNoteController.getPending);
 
-router.get('/:id', idParamRule, validation, DeliveryNoteController.getOne);
+router.get('/:id', idParamRule, validation, RepairNoteController.getOne);
 
-router.delete('/:id', idParamRule, validation, DeliveryNoteController.delete);
+router.delete('/:id', idParamRule, validation, RepairNoteController.delete);
 
-router.patch('/:id', idParamRule, updateRules, validation, DeliveryNoteController.update);
+router.patch('/:id', idParamRule, updateRules, validation, RepairNoteController.update);
 
 export default router;
