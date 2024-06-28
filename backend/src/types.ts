@@ -10,7 +10,7 @@ import {
 export type ValidatedDataType = {
   limit?: number;
   offset?: number;
-} & Partial<CreationAttributes<IDeliveryNote>>;
+} & Partial<CreationAttributes<IReparirNote>>;
 
 declare global {
   namespace Express {
@@ -20,8 +20,8 @@ declare global {
   }
 }
 
-export interface IDeliveryNote
-  extends Model<InferAttributes<IDeliveryNote>, InferCreationAttributes<IDeliveryNote>> {
+export interface IReparirNote
+  extends Model<InferAttributes<IReparirNote>, InferCreationAttributes<IReparirNote>> {
   id: CreationOptional<number>;
   client: string;
   phoneNumber: string;

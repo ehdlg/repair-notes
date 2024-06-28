@@ -1,8 +1,8 @@
 import sequelize from './config';
 import { DataTypes } from 'sequelize';
-import { IDeliveryNote } from '../types';
+import { IReparirNote } from '../types';
 
-const DeliveryNote = sequelize.define<IDeliveryNote>(
+const RepairNote = sequelize.define<IReparirNote>(
   'Nota',
   {
     id: {
@@ -78,4 +78,4 @@ export async function initDb() {
   }
 }
 
-export default DeliveryNote;
+export default RepairNote;

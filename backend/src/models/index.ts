@@ -1,16 +1,16 @@
 import { CreationAttributes } from 'sequelize';
 import DeliveryNoteModel from '../db';
-import { IDeliveryNote } from '../types';
+import { IReparirNote } from '../types';
 import { Op } from 'sequelize';
 
-export default class DeliveryNote {
+export default class RepairNote {
   static async getAll({
     limit,
     offset,
   }: {
     limit: number;
     offset: number;
-  }): Promise<IDeliveryNote[]> {
+  }): Promise<IReparirNote[]> {
     const notes = await DeliveryNoteModel.findAll({
       limit,
       offset,
@@ -19,17 +19,17 @@ export default class DeliveryNote {
     return notes;
   }
 
-  static async getOne(id: number): Promise<IDeliveryNote | null> {
+  static async getOne(id: number): Promise<IReparirNote | null> {
     const note = await DeliveryNoteModel.findByPk(id);
 
     return note;
   }
 
-  static async getPending(): Promise<IDeliveryNote[]> {
+  static async getPending(): Promise<IReparirNote[]> {
     const limitDate = new Date();
     limitDate.setMonth(limitDate.getMonth() - 3);
 
-    const notes: IDeliveryNote[] = await DeliveryNoteModel.findAll({
+    const notes: IReparirNote[] = await DeliveryNoteModel.findAll({
       where: {
         entryDate: {
           [Op.lte]: limitDate,
@@ -43,7 +43,7 @@ export default class DeliveryNote {
     return notes;
   }
 
-  static async create(newNote: CreationAttributes<IDeliveryNote>): Promise<IDeliveryNote> {
+  static async create(newNote: CreationAttributes<IReparirNote>): Promise<IReparirNote> {
     const note = await DeliveryNoteModel.create(newNote);
 
     return note;
@@ -61,7 +61,7 @@ export default class DeliveryNote {
 
   static async update(
     id: number,
-    updatedFields: Omit<Partial<CreationAttributes<IDeliveryNote>>, 'id'>
+    updatedFields: Omit<Partial<CreationAttributes<IReparirNote>>, 'id'>
   ): Promise<[affectedCount: number]> {
     const updatedNote = DeliveryNoteModel.update(updatedFields, {
       where: {
