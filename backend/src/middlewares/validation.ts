@@ -73,6 +73,8 @@ export const createRules = (() => {
         'El valor sobre si la máquina está reparada debe ser un booleano (true o false)'
       ),
 
+    body('details').optional().notEmpty().withMessage('Los detalles no pueden estar vacíos'),
+
     body('budget')
       .optional()
       .isFloat({ min: 1 })
@@ -125,6 +127,8 @@ export const updateRules = (() => {
       .withMessage(
         'El valor sobre si la máquina está reparada debe ser un booleano (true o false)'
       ),
+
+    body('details').optional().notEmpty().withMessage('Los detalles no pueden estar vacíos'),
 
     body('budget')
       .optional()
