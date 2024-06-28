@@ -1,7 +1,7 @@
 import { CreationAttributes } from 'sequelize';
 import DeliveryNoteModel from '../db';
 import { IReparirNote } from '../types';
-import { Op } from 'sequelize';
+import { PENDING_FILTER } from '../constants';
 
 export default class RepairNote {
   static async getAll({
@@ -10,10 +10,11 @@ export default class RepairNote {
   }: {
     limit: number;
     offset: number;
-  }): Promise<IReparirNote[]> {
-    const notes = await DeliveryNoteModel.findAll({
+  }): Promise<{ rows: IReparirNote[]; count: number }> {
+    const notes = await DeliveryNoteModel.findAndCountAll({
       limit,
       offset,
+      order: [['id', 'DESC']],
     });
 
     return notes;
@@ -25,22 +26,12 @@ export default class RepairNote {
     return note;
   }
 
-  static async getPending(): Promise<IReparirNote[]> {
-    const limitDate = new Date();
-    limitDate.setMonth(limitDate.getMonth() - 3);
-
-    const notes: IReparirNote[] = await DeliveryNoteModel.findAll({
-      where: {
-        entryDate: {
-          [Op.lte]: limitDate,
-        },
-        departureDate: {
-          [Op.is]: null,
-        },
-      },
+  static async getPending(): Promise<{ rows: IReparirNote[]; count: number }> {
+    const results = await DeliveryNoteModel.findAndCountAll({
+      where: PENDING_FILTER,
     });
 
-    return notes;
+    return results;
   }
 
   static async create(newNote: CreationAttributes<IReparirNote>): Promise<IReparirNote> {
@@ -70,5 +61,14 @@ export default class RepairNote {
     });
 
     return updatedNote;
+  }
+
+  static async getStadistics() {
+    const notesCount = await DeliveryNoteModel.count();
+    const pendingNotesCount = await DeliveryNoteModel.count({
+      where: PENDING_FILTER,
+    });
+
+    return { notesCount, pendingNotesCount };
   }
 }
