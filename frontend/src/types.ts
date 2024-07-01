@@ -9,5 +9,10 @@ export type RepairNoteType = {
   isRepaired: boolean | null;
   details: string | null;
   garanty: boolean | null;
-  budget: number | null
-}
+  budget: number | null;
+};
+
+export type CreateFormType = Pick<
+  RepairNoteType,
+  'client' | 'phoneNumber' | 'model' | 'malfunction' | 'entryDate' | 'garanty'
+>;
