@@ -1,3 +1,5 @@
+import { UseFormRegisterReturn } from 'react-hook-form';
+
 export type RepairNoteType = {
   id: number;
   client: string;
@@ -12,7 +14,11 @@ export type RepairNoteType = {
   budget: number | null;
 };
 
-export type CreateFormType = Pick<
-  RepairNoteType,
-  'client' | 'phoneNumber' | 'model' | 'malfunction' | 'entryDate' | 'garanty'
->;
+export type RepairNoteKeys = keyof RepairNoteType;
+
+export type InputsType = {
+  label: string;
+  name: RepairNoteKeys;
+  type: 'text' | 'number' | 'checkbox' | 'date';
+  defaultValue: string | number | undefined | Date | boolean;
+};
