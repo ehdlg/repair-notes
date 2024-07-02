@@ -1,4 +1,4 @@
-import { UseFormRegisterReturn } from 'react-hook-form';
+import { RegisterOptions } from 'react-hook-form';
 
 export type RepairNoteType = {
   id: number;
@@ -21,4 +21,5 @@ export type InputsType = {
   name: RepairNoteKeys;
   type: 'text' | 'number' | 'checkbox' | 'date';
   defaultValue: string | number | undefined | Date | boolean;
+  options?: RegisterOptions<RepairNoteType>;
 };
