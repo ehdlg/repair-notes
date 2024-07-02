@@ -37,17 +37,30 @@ export const idParamRule = (() => {
 
 export const createRules = (() => {
   return [
-    body('client').exists().withMessage('El nombre del cliente es obligatorio'),
+    body('client')
+      .exists()
+      .withMessage('El nombre del cliente es obligatorio')
+      .notEmpty()
+      .withMessage('El nombre del cliente no puede estar vacío'),
 
     body('phoneNumber')
+      .notEmpty()
+      .withMessage('El número de teléfono no puede estar vacío')
+      .bail()
       .matches(/^\d{9}$/)
       .withMessage('El número de teléfono debe tener exactamente 9 dígitos'),
 
-    body('model').exists().withMessage('El nombre o modelo de la máquina es obligatorio'),
+    body('model')
+      .exists()
+      .withMessage('El nombre o modelo de la máquina es obligatorio')
+      .notEmpty()
+      .withMessage('El modelo o máquina no puede estar vacío'),
 
     body('malfunction')
       .exists()
-      .withMessage('La descripción de la avería de la máquina es obligatoria'),
+      .withMessage('La descripción de la avería de la máquina es obligatoria')
+      .notEmpty()
+      .withMessage('La avería no puede estar vacía'),
 
     body('entryDate')
       .optional()
@@ -62,7 +75,7 @@ export const createRules = (() => {
       .withMessage('La fecha de salida debe ser una fecha válida'),
 
     body('garanty')
-      .optional()
+      .exists()
       .isBoolean()
       .withMessage('El valor de la garantía debe ser un booleano (true o false)'),
 
