@@ -8,7 +8,7 @@ export const NAVBAR_ELEMENTS: { url: string; name: string }[] = [
     name: 'Notas de reparación',
   },
   {
-    url: '/nueva',
+    url: '/notas/nueva',
     name: 'Crear nueva nota',
   },
   {

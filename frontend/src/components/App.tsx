@@ -1,10 +1,43 @@
-function App() {
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Toaster } from 'sonner';
+import Root from './Root';
+import NoteList from './NoteList';
+import EditNote from './EditNote';
+import CreateNote from './CreateNote';
 
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Root />,
+    errorElement: <h1>No encontrado</h1>,
+    children: [
+      {
+        path: '/',
+        element: <h1>Hola desdee /</h1>,
+      },
+      {
+        path: '/notas',
+        element: <NoteList />,
+      },
+      {
+        path: '/notas/:id',
+        element: <EditNote />,
+      },
+      {
+        path: '/notas/nueva',
+        element: <CreateNote />,
+      },
+    ],
+  },
+]);
+
+function App() {
   return (
     <>
-        <h1>Repair notes</h1>    
+      <RouterProvider router={router} />
+      <Toaster closeButton richColors position='top-right' expand />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
