@@ -1,8 +1,9 @@
-import express from 'express';
-import { initDb } from './db';
-import repairNoteRoute from './routes/';
-import { errorHandler, notFound } from './middlewares';
-import 'dotenv/config';
+import express from "express";
+import cors from "cors";
+import { initDb } from "./db";
+import repairNoteRoute from "./routes/";
+import { errorHandler, notFound } from "./middlewares";
+import "dotenv/config";
 
 const app = express();
 const { PORT } = process.env;
@@ -18,8 +19,9 @@ async function main() {
 }
 
 app.use(express.json());
+app.use(cors());
 
-app.use('/api', repairNoteRoute);
+app.use("/api", repairNoteRoute);
 
 app.use(notFound);
 
