@@ -91,7 +91,8 @@ export const CREATE_INPUTS: InputsType[] = [
   },
 ] as const;
 
-export const EDIT_INPUTS: InputsType[] = CREATE_INPUTS.concat([
+export const EDIT_INPUTS: InputsType[] = [
+  ...CREATE_INPUTS,
   {
     label: 'Fecha de salida',
     name: 'departureDate',
@@ -110,4 +111,4 @@ export const EDIT_INPUTS: InputsType[] = CREATE_INPUTS.concat([
     options: { required: false },
     type: 'number',
   },
-]);
+];
