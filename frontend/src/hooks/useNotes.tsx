@@ -1,9 +1,8 @@
 import useSwr from 'swr';
 import { FetchError } from '../errors';
 import { API_URL } from '../constants';
-import { RepairNoteType } from '../types';
 
-function useNotes(resource: string) {
+function useNotes<T>(resource: string) {
   const URL = `${API_URL}${resource}`;
 
   const fetcher = async (url: string) => {
@@ -21,14 +20,13 @@ function useNotes(resource: string) {
     return res.json();
   };
 
-  const { data, error, isLoading } = useSwr<{ count: number; rows: RepairNoteType[] }, FetchError>(
+  const { data, error, isLoading } = useSwr<T, FetchError>(
     URL,
     fetcher
   );
 
   return {
-    count: data?.count,
-    rows: data?.rows,
+    data,
     error,
     isLoading,
   };

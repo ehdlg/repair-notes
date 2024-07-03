@@ -1,13 +1,16 @@
 import Note from './Note';
 import useNotes from '../hooks/useNotes';
 import Loading from './Loading';
+import { RepairNoteType } from '../types';
 
 function NoteList() {
-  const { rows: notes, error, isLoading } = useNotes('/?');
+  const { data, error, isLoading } = useNotes<{count:number, rows: RepairNoteType[]}>('/?');
 
   if (isLoading) return <Loading />;
 
   if (error) return null;
+  
+  const notes = data?.rows
 
   return (
     <>
