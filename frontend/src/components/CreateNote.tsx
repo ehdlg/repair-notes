@@ -29,7 +29,6 @@ function CreateNote() {
 
       if (response.status == 422) {
         const { errors } = data;
-        console.log('as');
 
         errors.forEach((error: string) => {
           toast.error(error);
@@ -49,15 +48,17 @@ function CreateNote() {
     <Form onSubmit={handleSubmit(onSubmit)} title='Nueva nota de reparación'>
       {CREATE_INPUTS.map((input) => {
         return (
-          <div className='flex flex-col gap-' key={input.name}>
+          <div className='flex flex-col gap-1' key={input.name}>
             <Input
               label={input.label}
               name={input.name}
               type={input.type}
-              defaultValue={input.defaultValue || ''}
+              defaultValue={input.defaultValue || undefined}
               register={{ ...register(input.name, input.options) }}
             />
-            {errors[input.name] && <span className='text-red-500'>Este campo es obligatorio</span>}
+            {errors[input.name] && (
+              <span className='text-red-500 text-sm text-wrap'>{errors[input.name]?.message}</span>
+            )}
           </div>
         );
       })}
