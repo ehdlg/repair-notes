@@ -51,7 +51,6 @@ export const CREATE_INPUTS: InputsType[] = [
   },
   {
     label: 'Número de telefono',
-    defaultValue: '',
     name: 'phoneNumber',
     type: 'text',
     options: {
@@ -84,23 +83,20 @@ export const EDIT_INPUTS: InputsType[] = CREATE_INPUTS.map((input) => {
 }).concat([
   {
     label: 'Fecha de salida',
-    defaultValue: undefined,
     name: 'departureDate',
     options: { required: false },
     type: 'date',
   },
   {
-    label: 'Presupuesto',
-    name: 'budget',
-    defaultValue: 0,
-    options: { required: false },
-    type: 'number',
-  },
-  {
     label: '¿Está reparada?',
-    defaultValue: '',
     name: 'isRepaired',
     options: { required: false },
     type: 'checkbox',
+  },
+  {
+    label: 'Presupuesto',
+    name: 'budget',
+    options: { required: false },
+    type: 'number',
   },
 ]);

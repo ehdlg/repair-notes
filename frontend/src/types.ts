@@ -20,6 +20,6 @@ export type InputsType = {
   label: string;
   name: RepairNoteKeys;
   type: 'text' | 'number' | 'checkbox' | 'date';
-  defaultValue: string | number | undefined | Date | boolean;
+  defaultValue?: string | number | undefined | Date | boolean;
   options?: RegisterOptions<RepairNoteType>;
 };
