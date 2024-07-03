@@ -33,10 +33,7 @@ export default class RepairNoteController {
         throw new HTTPError({ status: 404, message: `Nota de entrega ${id} no encontrada` });
       }
 
-      return res.json({
-        count: 1,
-        rows: note,
-      });
+      return res.json(note);
     } catch (error) {
       next(error);
     }
