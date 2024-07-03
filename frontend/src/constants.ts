@@ -32,7 +32,7 @@ export const CREATE_INPUTS: InputsType[] = [
     },
   },
   {
-    label: 'Máquina',
+    label: 'Máquina/Modelo',
     defaultValue: '',
     name: 'model',
     type: 'text',
@@ -41,7 +41,7 @@ export const CREATE_INPUTS: InputsType[] = [
     },
   },
   {
-    label: 'Máquina/Avería',
+    label: 'Avería',
     defaultValue: '',
     name: 'malfunction',
     type: 'text',
