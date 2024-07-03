@@ -90,17 +90,17 @@ export const EDIT_INPUTS: InputsType[] = CREATE_INPUTS.map((input) => {
     type: 'date',
   },
   {
-    label: '¿Está reparada?',
-    defaultValue: false,
-    name: 'isRepaired',
-    options: { required: false },
-    type: 'checkbox',
-  },
-  {
     label: 'Presupuesto',
     name: 'budget',
     defaultValue: 0,
     options: { required: false },
     type: 'number',
+  },
+  {
+    label: '¿Está reparada?',
+    defaultValue: '',
+    name: 'isRepaired',
+    options: { required: false },
+    type: 'checkbox',
   },
 ]);
