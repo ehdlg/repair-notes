@@ -6,7 +6,7 @@ export type RepairNoteType = {
   phoneNumber: string;
   model: string;
   malfunction: string;
-  entryDate: Date;
+  entryDate: Date | string;
   departureDate: Date | null;
   isRepaired: boolean | null;
   details: string | null;
