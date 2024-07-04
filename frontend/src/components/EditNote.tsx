@@ -22,7 +22,7 @@ function EditNote() {
 
     toast.error(message);
 
-    return setTimeout(navigate, 100, '/notas');
+    return setTimeout(navigate, 100, '/');
   }
 
   const defaultValues = { ...note, entryDate: formatDateToInput(new Date(note.entryDate)) };
@@ -55,7 +55,7 @@ function EditNote() {
 
       toast.info(`Nota ${id} editada correctamente`);
 
-      return setTimeout(navigate, 300, '/notas');
+      return setTimeout(navigate, 300, '/');
     } catch (error) {
       console.error(error);
     }

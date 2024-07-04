@@ -5,11 +5,11 @@ export const API_URL = import.meta.env.VITE_API_URL;
 
 export const NAVBAR_ELEMENTS: { url: string; name: string }[] = [
   {
-    url: '/notas',
+    url: '/',
     name: 'Notas de reparación',
   },
   {
-    url: '/notas/nueva',
+    url: '/nueva',
     name: 'Crear nueva nota',
   },
   {

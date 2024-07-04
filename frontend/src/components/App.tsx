@@ -13,18 +13,14 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <h1>Hola desdee /</h1>,
-      },
-      {
-        path: '/notas',
         element: <NoteList />,
       },
       {
-        path: '/notas/:id',
+        path: '/:id',
         element: <EditNote />,
       },
       {
-        path: '/notas/nueva',
+        path: '/nueva',
         element: <CreateNote />,
       },
     ],

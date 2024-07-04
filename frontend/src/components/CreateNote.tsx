@@ -32,7 +32,7 @@ function CreateNote() {
 
       toast.success('Nota de reparación creada correctamente');
 
-      setTimeout(navigate, 300, '/notas');
+      setTimeout(navigate, 300, '/');
     } catch (error) {
       toast.error('Ocurrió un error al intentar crear la nota de reparación');
     }
