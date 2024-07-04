@@ -1,18 +1,12 @@
-import { SubmitHandler, useForm } from 'react-hook-form';
 import Form from './Form';
-import Input from './Input';
 import { useNavigate } from 'react-router-dom';
-import { API_URL, CREATE_INPUTS } from '../constants';
-import { RepairNoteType } from '../types';
 import { toast } from 'sonner';
+import { type SubmitHandler } from 'react-hook-form';
+import { API_URL, CREATE_INPUTS, DEFAULT_FORM_VALUES } from '../constants';
+import { RepairNoteType } from '../types';
 
 function CreateNote() {
   const navigate = useNavigate();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<RepairNoteType>();
 
   const URL = `${API_URL}/`;
   const onSubmit: SubmitHandler<RepairNoteType> = async (newNote) => {
@@ -45,24 +39,12 @@ function CreateNote() {
   };
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)} title='Nueva nota de reparación'>
-      {CREATE_INPUTS.map((input) => {
-        return (
-          <div className='flex flex-col gap-1' key={input.name}>
-            <Input
-              label={input.label}
-              name={input.name}
-              type={input.type}
-              defaultValue={input.defaultValue || undefined}
-              register={{ ...register(input.name, input.options) }}
-            />
-            {errors[input.name] && (
-              <span className='text-red-500 text-sm text-wrap'>{errors[input.name]?.message}</span>
-            )}
-          </div>
-        );
-      })}
-    </Form>
+    <Form
+      onSubmit={onSubmit}
+      title='Nueva nota de reparación'
+      defaultValues={DEFAULT_FORM_VALUES}
+      inputs={CREATE_INPUTS}
+    />
   );
 }
 
