@@ -1,4 +1,4 @@
-import { InputsType } from './types';
+import { InputsType, RepairNoteKeys, RepairNoteType } from './types';
 import { formatDateToInput } from './utils';
 
 export const API_URL = import.meta.env.VITE_API_URL;
@@ -120,3 +120,11 @@ export const DEFAULT_FORM_VALUES = {
   malfunction: '',
   phoneNumber: '',
 };
+
+export const REQUIRED_VALUES: RepairNoteKeys[] = [
+  'client',
+  'entryDate',
+  'malfunction',
+  'model',
+  'phoneNumber',
+];
