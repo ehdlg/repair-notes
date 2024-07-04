@@ -10,7 +10,7 @@ function Form({
 }: {
   inputs: InputsType[];
   onSubmit: SubmitHandler<RepairNoteType>;
-  defaultValues: Partial<RepairNoteType>;
+  defaultValues: Partial<RepairNoteType> | null;
   title: string;
 }) {
   const {
@@ -30,7 +30,10 @@ function Form({
       <div className='grid grid-cols-2 mx-4 gap-8 mb-12'>
         {inputs.map((input) => {
           return (
-            <div className='flex flex-col gap-1' key={input.name}>
+            <div
+              className={`flex flex-col gap-1 ${input.type == 'textarea' ? 'col-span-2' : ''}`}
+              key={input.name}
+            >
               <Input
                 label={input.label}
                 name={input.name}
