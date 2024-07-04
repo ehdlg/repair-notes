@@ -1,4 +1,5 @@
-import { DEFAULT_PAGE, DEFAULT_SIZE } from '../constants';
+import { DEFAULT_PAGE, DEFAULT_SIZE, REQUIRED_VALUES } from '../constants';
+import { RepairNoteKeys, RepairNoteType } from '../types';
 
 export function calculatePagination(page: number, size: number) {
   page = page > 0 ? page : DEFAULT_PAGE;
@@ -15,4 +16,20 @@ export function formatDateToInput(date: Date) {
   const month = String(date.getMonth() + 1).padStart(2, '0');
   const day = String(date.getDate()).padStart(2, '0');
   return `${year}-${month}-${day}`;
+}
+
+export function filterEditValues(note: Partial<RepairNoteType>) {
+  let values: Partial<RepairNoteType> = {};
+
+  for (const [key, value] of Object.entries(note)) {
+    const typedKey = key as RepairNoteKeys;
+
+    if (!REQUIRED_VALUES.includes(typedKey) && value === '') {
+      values = { ...values, [key]: null };
+    } else {
+      values = { ...values, [key]: value };
+    }
+  }
+
+  return values;
 }
