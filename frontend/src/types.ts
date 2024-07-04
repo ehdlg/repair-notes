@@ -19,7 +19,6 @@ export type RepairNoteKeys = keyof RepairNoteType;
 export type InputsType = {
   label: string;
   name: RepairNoteKeys;
-  type: 'text' | 'number' | 'checkbox' | 'date';
-  defaultValue?: string | number | undefined | Date | boolean;
+  type: 'text' | 'number' | 'checkbox' | 'date' | 'textarea';
   options?: RegisterOptions<RepairNoteType>;
 };
