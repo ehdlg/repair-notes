@@ -1,4 +1,4 @@
-import { InputsType, RepairNoteKeys, RepairNoteType } from './types';
+import { InputsType, RepairNoteKeys } from './types';
 import { formatDateToInput } from './utils';
 
 export const API_URL = import.meta.env.VITE_API_URL;
@@ -80,7 +80,6 @@ export const CREATE_INPUTS: InputsType[] = [
       valueAsDate: true,
     },
   },
-
   {
     label: 'Garantía',
     name: 'garanty',
@@ -89,10 +88,18 @@ export const CREATE_INPUTS: InputsType[] = [
       required: false,
     },
   },
+  {
+    label: 'Detalles',
+    name: 'details',
+    type: 'textarea',
+    options: {
+      required: false,
+    },
+  },
 ] as const;
 
 export const EDIT_INPUTS: InputsType[] = [
-  ...CREATE_INPUTS,
+  ...CREATE_INPUTS.filter((input) => input.name !== 'details'),
   {
     label: 'Fecha de salida',
     name: 'departureDate',
@@ -111,6 +118,7 @@ export const EDIT_INPUTS: InputsType[] = [
     options: { required: false },
     type: 'number',
   },
+  CREATE_INPUTS.find((input) => input.name === 'details')!,
 ];
 
 export const DEFAULT_FORM_VALUES = {
@@ -119,6 +127,7 @@ export const DEFAULT_FORM_VALUES = {
   entryDate: formatDateToInput(new Date()),
   malfunction: '',
   phoneNumber: '',
+  details: null,
 };
 
 export const REQUIRED_VALUES: RepairNoteKeys[] = [
