@@ -5,7 +5,7 @@ export function validation(req: Request, res: Response, next: NextFunction) {
   const errors = validationResult(req);
 
   if (errors.isEmpty()) {
-    const datosValidados = matchedData(req);
+    const datosValidados = matchedData(req, { includeOptionals: true });
     req.validatedData = datosValidados;
     return next();
   }
@@ -124,7 +124,7 @@ export const updateRules = (() => {
       .withMessage('La fecha de entrada debe ser una fecha válida'),
 
     body('departureDate')
-      .optional()
+      .optional({ values: 'null' })
       .isISO8601()
       .toDate()
       .withMessage('La fecha de salida debe ser una fecha válida'),
@@ -141,10 +141,13 @@ export const updateRules = (() => {
         'El valor sobre si la máquina está reparada debe ser un booleano (true o false)'
       ),
 
-    body('details').optional().notEmpty().withMessage('Los detalles no pueden estar vacíos'),
+    body('details')
+      .optional({ values: 'null' })
+      .notEmpty()
+      .withMessage('Los detalles no pueden estar vacíos'),
 
     body('budget')
-      .optional()
+      .optional({ values: 'null' })
       .isFloat({ min: 1 })
       .withMessage('El presupuesto debe ser un número mayor a 0'),
   ];
