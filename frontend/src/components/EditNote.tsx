@@ -6,7 +6,7 @@ import { toast } from 'sonner';
 import { type SubmitHandler } from 'react-hook-form';
 import { API_URL, EDIT_INPUTS } from '../constants';
 import { RepairNoteType } from '../types';
-import { filterEditValues, formatDateToInput } from '../utils';
+import { filterNote, formatDateToInput } from '../utils';
 
 function EditNote() {
   const { id } = useParams();
@@ -29,7 +29,7 @@ function EditNote() {
   const title = `Nota de reparación ${id}`;
   const onSubmit: SubmitHandler<RepairNoteType> = async (formData) => {
     try {
-      const editedNote = filterEditValues(formData);
+      const editedNote = filterNote(formData);
 
       const response = await fetch(URL, {
         method: 'PATCH',

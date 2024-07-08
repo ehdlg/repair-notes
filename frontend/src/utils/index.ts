@@ -18,7 +18,7 @@ export function formatDateToInput(date: Date) {
   return `${year}-${month}-${day}`;
 }
 
-export function filterEditValues(note: Partial<RepairNoteType>) {
+export function filterNote(note: Partial<RepairNoteType>) {
   let values: Partial<RepairNoteType> = {};
 
   for (const [key, value] of Object.entries(note)) {

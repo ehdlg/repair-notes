@@ -4,13 +4,15 @@ import { toast } from 'sonner';
 import { type SubmitHandler } from 'react-hook-form';
 import { API_URL, CREATE_INPUTS, DEFAULT_FORM_VALUES } from '../constants';
 import { RepairNoteType } from '../types';
+import { filterNote } from '../utils';
 
 function CreateNote() {
   const navigate = useNavigate();
 
   const URL = `${API_URL}/`;
-  const onSubmit: SubmitHandler<RepairNoteType> = async (newNote) => {
+  const onSubmit: SubmitHandler<RepairNoteType> = async (formData) => {
     try {
+      const newNote = filterNote(formData);
       const response = await fetch(URL, {
         method: 'POST',
         body: JSON.stringify(newNote),
