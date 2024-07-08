@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 
 function Main() {
   return (
-    <main className='col-span-7 row-span-4 w-4/5 my-12 mx-auto'>
+    <main className='max-w-[1500px] mx-auto my-8'>
       <Outlet />
     </main>
   );
