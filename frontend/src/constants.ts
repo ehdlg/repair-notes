@@ -3,18 +3,19 @@ import { formatDateToInput } from './utils';
 
 export const API_URL = import.meta.env.VITE_API_URL;
 
+//TODO update names
 export const NAVBAR_ELEMENTS: { url: string; name: string }[] = [
   {
     url: '/',
-    name: 'Notas de reparación',
+    name: 'N',
   },
   {
     url: '/nueva',
-    name: 'Crear nueva nota',
+    name: 'C',
   },
   {
     url: '/pendientes',
-    name: 'Notas de reparación pendientes',
+    name: 'NP',
   },
 ];
 
@@ -137,3 +138,5 @@ export const REQUIRED_VALUES: RepairNoteKeys[] = [
   'model',
   'phoneNumber',
 ];
+
+export const NOTE_LIMIT = 15;
