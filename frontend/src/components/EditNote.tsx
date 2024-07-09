@@ -26,7 +26,6 @@ function EditNote() {
   }
 
   const defaultValues = { ...note, entryDate: formatDateToInput(new Date(note.entryDate)) };
-  const title = `Nota de reparación ${id}`;
   const onSubmit: SubmitHandler<RepairNoteType> = async (formData) => {
     try {
       const editedNote = filterNote(formData);
@@ -55,14 +54,14 @@ function EditNote() {
 
       toast.info(`Nota ${id} editada correctamente`);
 
-      return setTimeout(navigate, 300, '/');
+      return setTimeout(navigate, 100, '/');
     } catch (error) {
       console.error(error);
     }
   };
 
   return (
-    <Form onSubmit={onSubmit} title={title} defaultValues={defaultValues} inputs={EDIT_INPUTS} />
+    <Form onSubmit={onSubmit} defaultValues={defaultValues} inputs={EDIT_INPUTS} isEdit={true} />
   );
 }
 
