@@ -22,3 +22,5 @@ export type InputsType = {
   type: 'text' | 'number' | 'checkbox' | 'date' | 'textarea';
   options?: RegisterOptions<RepairNoteType>;
 };
+
+export type FilterType = 'all' | 'repaired' | 'not-repaired' | 'pending';
