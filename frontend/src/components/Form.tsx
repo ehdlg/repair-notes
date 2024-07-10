@@ -23,7 +23,11 @@ function Form({
     handleSubmit,
     formState: { errors },
     reset,
+    watch,
+    setValue,
   } = useForm<RepairNoteType>({ defaultValues });
+  const garantyValue = isEdit && watch('garanty');
+  garantyValue ? setValue('budget', null) : setValue('budget', defaultValues?.budget ?? null);
 
   useEffect(() => {
     reset(defaultValues);
@@ -57,6 +61,9 @@ function Form({
       </div>
       <div className='grid grid-cols-2 mx-4 gap-8 mb-12'>
         {inputs.map((input) => {
+          const isBudget = input.name === 'budget';
+          const disabled = isBudget && !!garantyValue;
+
           return (
             <div
               className={`flex flex-col gap-1 ${input.type == 'textarea' ? 'col-span-2' : ''}`}
@@ -67,6 +74,7 @@ function Form({
                 name={input.name}
                 type={input.type}
                 register={{ ...register(input.name, input.options) }}
+                disabled={disabled}
               />
               {errors[input.name] && (
                 <span className='text-red-500 text-sm text-wrap'>
