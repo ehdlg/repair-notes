@@ -10,6 +10,7 @@ import {
 export type ValidatedDataType = {
   limit?: number;
   offset?: number;
+  condition?: NoteFilterType;
 } & Partial<CreationAttributes<IReparirNote>>;
 
 declare global {
@@ -34,3 +35,5 @@ export interface IReparirNote
   garanty: CreationOptional<boolean>;
   budget: CreationOptional<number> | null;
 }
+
+export type NoteFilterType = 'all' | 'repaired' | 'not-repaired' | 'pending';
