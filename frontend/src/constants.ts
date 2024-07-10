@@ -1,4 +1,4 @@
-import { InputsType, RepairNoteKeys } from './types';
+import { FilterType, InputsType, RepairNoteKeys } from './types';
 import { formatDateToInput } from './utils';
 
 export const API_URL = import.meta.env.VITE_API_URL;
@@ -142,3 +142,22 @@ export const REQUIRED_VALUES: RepairNoteKeys[] = [
 export const NOTE_LIMIT = 15;
 
 export const ALL_CONDITIONS = ['all', 'repaired', 'not-repaired', 'pending'] as const;
+
+export const FILTER_INPUTS: { value: FilterType; label: string }[] = [
+  {
+    value: 'all',
+    label: 'Todas',
+  },
+  {
+    value: 'repaired',
+    label: 'Reparadas',
+  },
+  {
+    value: 'not-repaired',
+    label: 'Sin reparar',
+  },
+  {
+    value: 'pending',
+    label: 'Pendientes de recoger',
+  },
+];
