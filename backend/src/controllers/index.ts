@@ -1,6 +1,6 @@
 import RepairNote from '../models';
 import { NextFunction, Request, Response } from 'express';
-import { DEFAULT_LIMIT, DEFAULT_OFFSET } from '../constants';
+import { DEFAULT_CONDITION, DEFAULT_LIMIT, DEFAULT_OFFSET } from '../constants';
 import { HTTPError } from '../errors';
 import { CreationAttributes } from 'sequelize';
 import { IReparirNote, ValidatedDataType } from '../types';
@@ -10,8 +10,9 @@ export default class RepairNoteController {
     try {
       const limit = req.validatedData?.limit || DEFAULT_LIMIT;
       const offset = req.validatedData?.offset || DEFAULT_OFFSET;
+      const condition = req.validatedData?.condition || DEFAULT_CONDITION;
 
-      const notes = await RepairNote.getAll({ limit, offset });
+      const notes = await RepairNote.getAll({ limit, offset, condition });
 
       return res.json(notes);
     } catch (error) {
@@ -34,16 +35,6 @@ export default class RepairNoteController {
       }
 
       return res.json(note);
-    } catch (error) {
-      next(error);
-    }
-  }
-
-  static async getPending(_: Request, res: Response, next: NextFunction) {
-    try {
-      const notes = await RepairNote.getPending();
-
-      return res.json(notes);
     } catch (error) {
       next(error);
     }

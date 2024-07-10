@@ -34,14 +34,6 @@ export default class RepairNote {
     return note;
   }
 
-  static async getPending(): Promise<{ rows: IReparirNote[]; count: number }> {
-    const results = await RepairNoteModel.findAndCountAll({
-      where: PENDING_FILTER,
-    });
-
-    return results;
-  }
-
   static async create(newNote: CreationAttributes<IReparirNote>): Promise<IReparirNote> {
     const note = await RepairNoteModel.create(newNote);
 

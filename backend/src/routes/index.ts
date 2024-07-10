@@ -14,8 +14,6 @@ router.get('/', getAllRules, validation, RepairNoteController.getAll);
 
 router.post('/', createRules, validation, RepairNoteController.create);
 
-router.get('/pending', RepairNoteController.getPending);
-
 router.get('/:id', idParamRule, validation, RepairNoteController.getOne);
 
 router.delete('/:id', idParamRule, validation, RepairNoteController.delete);
