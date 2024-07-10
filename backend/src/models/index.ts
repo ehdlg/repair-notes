@@ -1,19 +1,27 @@
 import { CreationAttributes } from 'sequelize';
 import RepairNoteModel from '../db';
-import { IReparirNote } from '../types';
-import { PENDING_FILTER } from '../constants';
+import { IReparirNote, NoteFilterType } from '../types';
+import {
+  PENDING_FILTER,
+  WHERE_CONDITION,
+  DEFAULT_WHERE_CONDITION,
+  DEFAULT_CONDITION,
+} from '../constants';
 
 export default class RepairNote {
   static async getAll({
     limit,
     offset,
+    condition = DEFAULT_CONDITION,
   }: {
     limit: number;
     offset: number;
+    condition?: NoteFilterType;
   }): Promise<{ rows: IReparirNote[]; count: number }> {
     const results = await RepairNoteModel.findAndCountAll({
       limit,
       offset,
+      where: WHERE_CONDITION[condition] || DEFAULT_WHERE_CONDITION,
       order: [['id', 'DESC']],
     });
 
