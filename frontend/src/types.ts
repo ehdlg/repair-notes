@@ -1,4 +1,5 @@
 import { RegisterOptions } from 'react-hook-form';
+import { ALL_CONDITIONS } from './constants';
 
 export type RepairNoteType = {
   id: number;
@@ -23,4 +24,4 @@ export type InputsType = {
   options?: RegisterOptions<RepairNoteType>;
 };
 
-export type FilterType = 'all' | 'repaired' | 'not-repaired' | 'pending';
+export type FilterType = (typeof ALL_CONDITIONS)[number];
