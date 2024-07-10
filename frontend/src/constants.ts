@@ -3,22 +3,6 @@ import { formatDateToInput } from './utils';
 
 export const API_URL = import.meta.env.VITE_API_URL;
 
-//TODO update names
-export const NAVBAR_ELEMENTS: { url: string; name: string }[] = [
-  {
-    url: '/',
-    name: 'N',
-  },
-  {
-    url: '/nueva',
-    name: 'C',
-  },
-  {
-    url: '/pendientes',
-    name: 'NP',
-  },
-];
-
 export const DEFAULT_PAGE = 1;
 
 export const DEFAULT_SIZE = 50;
