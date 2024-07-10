@@ -28,6 +28,8 @@ export const getAllRules = (() => {
       .optional()
       .isInt({ min: 0 })
       .withMessage('El offset debe ser un número mayor o igual a 0'),
+
+    query('condition').optional({ values: 'undefined' }).default('all'),
   ];
 })();
 
