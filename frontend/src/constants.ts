@@ -140,3 +140,5 @@ export const REQUIRED_VALUES: RepairNoteKeys[] = [
 ];
 
 export const NOTE_LIMIT = 15;
+
+export const ALL_CONDITIONS = ['all', 'repaired', 'not-repaired', 'pending'] as const;
