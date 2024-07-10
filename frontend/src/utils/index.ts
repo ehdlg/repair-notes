@@ -1,5 +1,5 @@
-import { DEFAULT_PAGE, DEFAULT_SIZE, REQUIRED_VALUES } from '../constants';
-import { RepairNoteKeys, RepairNoteType } from '../types';
+import { ALL_CONDITIONS, DEFAULT_PAGE, DEFAULT_SIZE, REQUIRED_VALUES } from '../constants';
+import { RepairNoteKeys, RepairNoteType, FilterType } from '../types';
 
 export function calculatePagination(page: number, size: number) {
   page = page > 0 ? page : DEFAULT_PAGE;
@@ -32,4 +32,8 @@ export function filterNote(note: Partial<RepairNoteType>) {
   }
 
   return values;
+}
+
+export function isFilterType(value: string): value is FilterType {
+  return (ALL_CONDITIONS as readonly string[]).includes(value);
 }
