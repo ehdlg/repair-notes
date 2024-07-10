@@ -1,25 +1,33 @@
 import { useState } from 'react';
 import Note from './Note';
 import useNotes from '../hooks/useNotes';
+import Filter from './Filter';
 import Loading from './Loading';
 import Pagination from './Pagination';
-import { NOTE_LIMIT } from '../constants';
-import { RepairNoteType } from '../types';
-import { calculatePagination } from '../utils';
+import { FILTER_INPUTS, NOTE_LIMIT } from '../constants';
+import { FilterType, RepairNoteType } from '../types';
+import { calculatePagination, isFilterType } from '../utils';
 
 function NoteList() {
   const [page, setPage] = useState(1);
+  const [filter, setFilter] = useState<FilterType>('all');
+
   const updatePage = {
     next: () => setPage((prevPage) => prevPage + 1),
     prior: () => setPage((prevPage) => prevPage - 1),
   };
+  const updateFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newFilter = e.target.value;
+
+    if (!isFilterType(newFilter)) return;
+
+    setFilter(newFilter);
+    setPage(1);
+  };
 
   const { limit, offset } = calculatePagination(page, NOTE_LIMIT);
-
-  console.log(limit, offset);
-
   const { data, error, isLoading } = useNotes<{ count: number; rows: RepairNoteType[] }>(
-    `/?limit=${limit}&offset=${offset}`
+    `/?limit=${limit}&offset=${offset}&condition=${filter}`
   );
 
   if (isLoading) return <Loading />;
@@ -32,7 +40,21 @@ function NoteList() {
 
   return (
     <>
-      <h2 className='mb-8 text-slate-800 text-3xl'>Notas de reparación</h2>
+      <div className='mb-8 w-full flex flex-col gap-4 '>
+        <h2 className='text-slate-800 text-3xl'>Notas de reparación</h2>
+        <div className='flex gap-12 w-fit p-2 rounded self-center border border-gray-200 bg-white text-xl'>
+          {FILTER_INPUTS.map((input) => {
+            return (
+              <Filter
+                label={input.label}
+                value={input.value}
+                update={updateFilter}
+                checked={input.value === filter}
+              />
+            );
+          })}
+        </div>
+      </div>
       <div className='grid grid-cols-5  gap-4 justify-center'>
         {notes?.map((note) => {
           return <Note note={note} />;
