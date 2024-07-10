@@ -1,10 +1,10 @@
-import { Link } from 'react-router-dom';
-import { NAVBAR_ELEMENTS } from '../constants';
 import Search from './Search';
+import { PlusCircleIcon } from '@heroicons/react/24/outline';
+import { Link } from 'react-router-dom';
 
 function Navbar() {
   return (
-    <div className='sticky top-0 h-12 bg-white border-b border-gray-200 p-2 opacity-90'>
+    <div className='sticky top-0 h-12 bg-white border-b border-gray-200 p-2 opacity-90 shadow-sm'>
       <nav className='flex justify-around items-center h-full mx-auto'>
         <Link to={'/'}>
           <img
@@ -14,17 +14,9 @@ function Navbar() {
           />
         </Link>
         <Search />
-        <ul className='flex justify-between gap-10'>
-          {NAVBAR_ELEMENTS.map((element) => {
-            return (
-              <li key={element.url} className='list-none'>
-                <Link to={element.url} className='cursor-pointer text-l text-gray-600'>
-                  {element.name}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+        <Link to='/nueva'>
+          <PlusCircleIcon className='size-8 text-gray-700 hover:bg-gray-700 hover:text-white rounded-full transition ease-in' />
+        </Link>
       </nav>
     </div>
   );
