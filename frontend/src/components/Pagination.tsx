@@ -1,5 +1,28 @@
-import PaginationButton from './PaginationButton';
 import { ArrowRightIcon, ArrowLeftIcon } from '@heroicons/react/24/outline';
+
+const PaginationButton = ({
+  show,
+  onClick,
+  Icon,
+}: {
+  show: boolean;
+  onClick: () => void;
+  Icon: React.ForwardRefExoticComponent<Omit<React.SVGProps<SVGSVGElement>, 'ref'>>;
+}) => {
+  return (
+    <button
+      onClick={onClick}
+      disabled={!show}
+      className={`p-2 rounded-full border border-gray-200 flex gap-2 ${
+        !show ? 'opacity-0 disabled' : ''
+      }`}
+    >
+      <Icon className='size-6 text-gray-700' />
+    </button>
+  );
+};
+
+Pagination.Button = PaginationButton;
 
 function Pagination({
   page,
@@ -15,9 +38,9 @@ function Pagination({
 
   return (
     <div className='flex w-1/2 justify-center items-center gap-10 mx-auto mt-8'>
-      <PaginationButton Icon={ArrowLeftIcon} onClick={update.prior} show={showPrior} />
+      <Pagination.Button Icon={ArrowLeftIcon} onClick={update.prior} show={showPrior} />
       <span className='text-2xl text-gray-700 font-semibold'>{page}</span>
-      <PaginationButton Icon={ArrowRightIcon} onClick={update.next} show={showForward} />
+      <Pagination.Button Icon={ArrowRightIcon} onClick={update.next} show={showForward} />
     </div>
   );
 }
