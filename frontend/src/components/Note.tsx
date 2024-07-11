@@ -11,7 +11,7 @@ function Note({ note }: { note: RepairNoteType }) {
 
   return (
     <Link to={`/${note.id}`}>
-      <div className='bg-white rounded-lg hover:shadow-2xl w-full p-5 border text-center border-gray-200 flex flex-col gap-4 transition ease-in duration-100 text-gray-700 hover:bg-gray-700 hover:text-white  hover:-translate-y-2 hover:border-none'>
+      <div className='bg-white rounded-lg hover:shadow-2xl w-full p-5 border text-center border-gray-200 flex flex-col gap-4 transition ease-in duration-100 text-gray-700  hover:-translate-y-2 '>
         <h2 className='text-3xl font-bold  mb-1'>{note.id}</h2>
 
         <span className='text-xl'>{note.model}</span>
