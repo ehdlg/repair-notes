@@ -1,4 +1,3 @@
-import React from 'react';
 import { Page, Text, View, Document, Image, StyleSheet } from '@react-pdf/renderer';
 import template from '../assets/template.png';
 import { RepairNoteType } from '../types';
