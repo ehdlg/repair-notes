@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import Note from './Note';
-import useNotes from '../hooks/useNotes';
 import Filter from './Filter';
 import Loading from './Loading';
 import Pagination from './Pagination';
+import useNotes from '../hooks/useNotes';
 import { FILTER_INPUTS, NOTE_LIMIT } from '../constants';
 import { FilterType, RepairNoteType } from '../types';
 import { calculatePagination, isFilterType } from '../utils';
@@ -35,14 +35,13 @@ function NoteList() {
   if (error || undefined == data) return null;
 
   const notes = data.rows;
-  const noteCount = data.count;
-  const pageCount = Math.ceil(noteCount / NOTE_LIMIT);
+  const pageCount = Math.ceil(data.count / NOTE_LIMIT);
 
   return (
     <>
-      <div className='mb-8 w-full flex flex-col gap-4 '>
-        <h2 className='text-slate-800 text-3xl'>Notas de reparación</h2>
-        <div className='flex gap-12 w-fit p-2 rounded self-center border border-gray-200 bg-white text-xl'>
+      <div className='mb-8 w-full flex flex-col items-center gap-4 '>
+        <h2 className='text-gray-700 text-3xl font-semibold'>Notas de reparación</h2>
+        <div className='flex gap-12 w-fit p-4 rounded items-center self-center border border-gray-200 bg-white text-xl'>
           {FILTER_INPUTS.map((input) => {
             return (
               <Filter
@@ -55,7 +54,7 @@ function NoteList() {
           })}
         </div>
       </div>
-      <div className='grid grid-cols-5  gap-4 justify-center'>
+      <div className='grid 2xl:grid-cols-5  grid-cols-3 gap-4 justify-center items-center'>
         {notes?.map((note) => {
           return <Note note={note} />;
         })}

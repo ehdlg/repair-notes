@@ -12,8 +12,21 @@ function Filter({
 }) {
   return (
     <label className='flex flex-col-reverse gap-2 cursor-pointer '>
-      <input type='radio' name='filter' value={value} onChange={update} checked={checked} />
-      <span>{label}</span>
+      <input
+        className='hidden'
+        type='radio'
+        name='filter'
+        value={value}
+        onChange={update}
+        checked={checked}
+      />
+      <span
+        className={`text-gray-700 hover:underline underline-offset-8  ${
+          checked && 'text-gray-800 font-bold hover:no-underline'
+        }`}
+      >
+        {label}
+      </span>
     </label>
   );
 }

@@ -1,33 +1,46 @@
+import { UserIcon, DevicePhoneMobileIcon } from '@heroicons/react/24/outline';
+import { Link } from 'react-router-dom';
 import { RepairNoteType } from '../types';
 
 function Note({ note }: { note: RepairNoteType }) {
+  const state = note.garanty
+    ? 'Garantía'
+    : null != note.budget
+    ? `Presupuestado: ${note.budget} €`
+    : 'Sin presupuestar';
+
   return (
-    <div className='bg-white rounded-lg shadow-lg p-4 border border-slate-200 flex flex-col gap-1'>
-      <h2 className='text-3xl font-semibold text-gray-800 mb-2'>{note.id}</h2>
+    <Link to={`/${note.id}`}>
+      <div className='bg-white rounded-lg hover:shadow-2xl w-full p-5 border text-center border-gray-200 flex flex-col gap-4 transition ease-in duration-100 text-gray-700 hover:bg-gray-700 hover:text-white  hover:-translate-y-2 hover:border-none'>
+        <h2 className='text-3xl font-bold  mb-1'>{note.id}</h2>
 
-      <span className='text-xl text-gray-600'>{note.model}</span>
+        <span className='text-xl'>{note.model}</span>
 
-      <span className='text-md text-gray-500'>Cliente: {note.client}</span>
-
-      <div className='flex w-full justify-between mt-4'>
-        <div className='py-1 px-3 bg-green-500 rounded-lg text-white'>
-          <span>Reparado</span>
-        </div>
-        <div className='text-gray-700 text-md'>
-          <span>
-            {note.garanty
-              ? 'Garantía'
-              : note.budget != null
-              ? `${note.budget}€`
-              : 'Sin presupuesto'}
+        <div className='flex justify-around gap-6 text-lg'>
+          <span className='text-md flex flex-col items-center gap-2'>
+            <UserIcon className='size-5' />
+            {note.client}
+          </span>
+          <span className='text-md flex flex-col items-center gap-2'>
+            <DevicePhoneMobileIcon className='size-5' />
+            {note.phoneNumber}
           </span>
         </div>
-      </div>
 
-      <button className='mt-4 bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600'>
-        Detalles
-      </button>
-    </div>
+        <div className='flex w-full items-center justify-between mt-4'>
+          <div
+            className={`py-2 px-4  rounded-lg text-white ${
+              note.isRepaired ? 'bg-green-400' : 'bg-red-400'
+            }`}
+          >
+            <span>{note.isRepaired ? 'Reparado' : 'No reparado'}</span>
+          </div>
+          <div className='text-md'>
+            <span>{state}</span>
+          </div>
+        </div>
+      </div>
+    </Link>
   );
 }
 
