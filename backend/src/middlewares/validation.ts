@@ -94,7 +94,8 @@ export const createRules = (() => {
       .withMessage('Los detalles no pueden estar vacíos'),
 
     body('budget')
-      .optional()
+      .optional({ values: 'null' })
+      .default(null)
       .isFloat({ min: 1 })
       .withMessage('El presupuesto debe ser un número mayor a 0'),
   ];
