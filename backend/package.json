@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon ./src/app.ts",
-    "start": "node dist/app.js",
+    "dev": "nodemon ./src/app.ts --expose",
+    "start": "node dist/app.js --expose",
     "build": "pnpm install && pnpm exec tsc"
   },
   "keywords": [],
