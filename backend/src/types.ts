@@ -6,6 +6,7 @@ import {
   Model,
   CreationAttributes,
 } from 'sequelize';
+import { WHERE_CONDITION } from './constants';
 
 export type ValidatedDataType = {
   limit?: number;
@@ -36,4 +37,4 @@ export interface IReparirNote
   budget: CreationOptional<number> | null;
 }
 
-export type NoteFilterType = 'all' | 'repaired' | 'not-repaired' | 'pending';
+export type NoteFilterType = keyof typeof WHERE_CONDITION;
