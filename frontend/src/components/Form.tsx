@@ -47,7 +47,7 @@ function Form({
                 return (
                   <PrinterIcon
                     className={`size-10 text-gray-700 border border-gray-200 p-2 rounded hover:border-none hover:text-white hover:bg-gray-700 transition ease-in ${
-                      loading ? 'disabled opacity-20 cursor-not-allowed' : ''
+                      loading && 'disabled opacity-20 cursor-not-allowed'
                     }`}
                   />
                 );
@@ -66,7 +66,7 @@ function Form({
 
           return (
             <div
-              className={`flex flex-col gap-1 ${input.type == 'textarea' ? 'col-span-2' : ''}`}
+              className={`flex flex-col gap-1 ${input.type === 'textarea' && 'col-span-2'}`}
               key={input.name}
             >
               <Input
