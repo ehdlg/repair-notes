@@ -22,6 +22,18 @@ export const CREATE_INPUTS: InputsType[] = [
     },
   },
   {
+    label: 'Número de telefono',
+    name: 'phoneNumber',
+    type: 'text',
+    options: {
+      required: {
+        value: true,
+        message: 'El número de teléfono del cliente es obligatorio',
+      },
+      pattern: { value: /^[0-9]{9}$/, message: 'El número de teléfono debe tener 9 dígitos' },
+    },
+  },
+  {
     label: 'Máquina/Modelo',
     name: 'model',
     type: 'text',
@@ -41,18 +53,6 @@ export const CREATE_INPUTS: InputsType[] = [
         value: true,
         message: 'La avería de la máquina es obligatoria',
       },
-    },
-  },
-  {
-    label: 'Número de telefono',
-    name: 'phoneNumber',
-    type: 'text',
-    options: {
-      required: {
-        value: true,
-        message: 'El número de teléfono del cliente es obligatorio',
-      },
-      pattern: { value: /^[0-9]{9}$/, message: 'El número de teléfono debe tener 9 dígitos' },
     },
   },
   {
@@ -127,7 +127,7 @@ export const REQUIRED_VALUES: RepairNoteKeys[] = [
 
 export const NOTE_LIMIT = 15;
 
-export const ALL_CONDITIONS = ['all', 'repaired', 'not-repaired', 'pending'] as const;
+export const ALL_CONDITIONS = ['all', 'repaired', 'not-repaired', 'pending', 'unbudgeted'] as const;
 
 export const FILTER_INPUTS: { value: FilterType; label: string }[] = [
   {
@@ -145,5 +145,9 @@ export const FILTER_INPUTS: { value: FilterType; label: string }[] = [
   {
     value: 'pending',
     label: 'Pendientes de recoger',
+  },
+  {
+    value: 'unbudgeted',
+    label: 'Sin presupuestar',
   },
 ];
