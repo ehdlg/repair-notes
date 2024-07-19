@@ -6,6 +6,7 @@
   "scripts": {
     "build:frontend": "cd frontend && pnpm build",
     "build:backend": "cd backend && pnpm build",
+    "build": "concurrently \"pnpm build:frontend\" \"pnpm build:backend\" ",
     "dev:frontend": "cd frontend && pnpm dev",
     "dev:backend": "cd backend && pnpm dev",
     "start:frontend": "cd frontend && pnpm preview",
