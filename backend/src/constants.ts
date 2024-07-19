@@ -27,6 +27,12 @@ export const WHERE_CONDITION = {
       [Op.is]: null,
     },
   },
-};
+  unbudgeted: {
+    budget: {
+      [Op.is]: null,
+    },
+    garanty: false,
+  },
+} as const;
 
 export const DEFAULT_WHERE_CONDITION = WHERE_CONDITION[DEFAULT_CONDITION];
