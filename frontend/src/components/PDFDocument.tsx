@@ -1,8 +1,6 @@
 import { Page, Text, View, Document, Image, StyleSheet } from '@react-pdf/renderer';
 import { RepairNoteType } from '../types';
-import { IS_LOCAL } from '../constants';
-
-const templateImage = IS_LOCAL ? 'template.png' : 'prod-template.png';
+import template from '../assets/template.png';
 
 const styles = StyleSheet.create({
   page: {
@@ -80,7 +78,7 @@ function PDFDocument({ note }: { note: Partial<RepairNoteType> }) {
     <Document>
       <Page size='A1' orientation='landscape' style={styles.page}>
         <View style={styles.view}>
-          <Image src={`/src/assets/${templateImage}`} style={styles.template} />
+          <Image src={template} style={styles.template} />
         </View>
         <View style={styles.idContainer}>
           <Text>Nota de reparación No.{note.id}</Text>
