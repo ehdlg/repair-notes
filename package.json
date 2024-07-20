@@ -1,20 +1,13 @@
 {
-  "workspaces": [
-    "backend",
-    "frontend"
-  ],
   "scripts": {
     "build:frontend": "cd frontend && pnpm build",
     "build:backend": "cd backend && pnpm build",
-    "build": "concurrently \"pnpm build:frontend\" \"pnpm build:backend\" ",
+    "build": "pnpm -r run build",
     "dev:frontend": "cd frontend && pnpm dev",
     "dev:backend": "cd backend && pnpm dev",
+    "dev": "pnpm -r run dev",
     "start:frontend": "cd frontend && pnpm preview",
     "start:backend": "cd backend && pnpm start",
-    "dev": "concurrently \"pnpm dev:backend\" \"pnpm dev:frontend\"",
-    "start": "concurrently \"pnpm start:backend\" \"pnpm start:frontend\""
-  },
-  "devDependencies": {
-    "concurrently": "^8.2.2"
+    "start": "pnpm -r run start"
   }
 }
