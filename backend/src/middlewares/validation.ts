@@ -5,8 +5,8 @@ export function validation(req: Request, res: Response, next: NextFunction) {
   const errors = validationResult(req);
 
   if (errors.isEmpty()) {
-    const datosValidados = matchedData(req, { includeOptionals: true });
-    req.validatedData = datosValidados;
+    const validatedData = matchedData(req, { includeOptionals: true });
+    req.validatedData = validatedData;
     return next();
   }
 
