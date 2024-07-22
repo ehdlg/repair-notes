@@ -1,13 +1,13 @@
 import { useId } from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
-import { InputsType } from '../types';
+import { FormInput } from '../types';
 function Input({
   label,
   name,
   type,
   register,
   disabled = false,
-}: InputsType & {
+}: FormInput & {
   register?: UseFormRegisterReturn;
   disabled?: boolean;
 }) {

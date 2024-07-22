@@ -1,4 +1,4 @@
-import { FilterType, InputsType, RepairNoteKeys } from './types';
+import { FilterType, FormInput, RepairNoteKeys } from './types';
 import { formatDateToInput } from './utils';
 
 export const API_URL = import.meta.env.VITE_API_URL;
@@ -9,7 +9,7 @@ export const DEFAULT_PAGE = 1;
 
 export const DEFAULT_SIZE = 50;
 
-export const CREATE_INPUTS: InputsType[] = [
+export const CREATE_INPUTS: FormInput[] = [
   {
     label: 'Cliente',
     name: 'client',
@@ -85,7 +85,7 @@ export const CREATE_INPUTS: InputsType[] = [
   },
 ] as const;
 
-export const EDIT_INPUTS: InputsType[] = [
+export const EDIT_INPUTS: FormInput[] = [
   ...CREATE_INPUTS.filter((input) => input.name !== 'details'),
   {
     label: 'Fecha de salida',

@@ -3,7 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import Input from './Input';
 import PDFDocument from './PDFDocument';
 import { CheckIcon, PrinterIcon } from '@heroicons/react/24/outline';
-import { InputsType, RepairNoteType } from '../types';
+import { FormInput, RepairNoteType } from '../types';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 
 function Form({
@@ -12,7 +12,7 @@ function Form({
   defaultValues,
   isEdit = false,
 }: {
-  inputs: InputsType[];
+  inputs: FormInput[];
   onSubmit: SubmitHandler<RepairNoteType>;
   defaultValues: Partial<RepairNoteType>;
   isEdit?: boolean;

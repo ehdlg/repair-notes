@@ -19,7 +19,7 @@ export type RepairNoteKeys = keyof RepairNoteType;
 
 type InputType = 'text' | 'number' | 'checkbox' | 'date' | 'textarea' | 'tel';
 
-export type InputsType = {
+export type FormInput = {
   label: string;
   name: RepairNoteKeys;
   type: InputType;
