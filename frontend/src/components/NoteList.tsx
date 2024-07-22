@@ -35,6 +35,7 @@ function NoteList() {
   if (error || undefined == data) return null;
 
   const notes = data.rows;
+  const emptyNotes = notes.length === 0;
   const pageCount = Math.ceil(data.count / NOTE_LIMIT);
 
   return (
@@ -55,11 +56,17 @@ function NoteList() {
         </div>
       </div>
       <div className='grid 2xl:grid-cols-5  grid-cols-3 gap-4 justify-center items-center'>
-        {notes?.map((note) => {
-          return <Note note={note} />;
-        })}
+        {!emptyNotes ? (
+          notes.map((note) => {
+            return <Note note={note} />;
+          })
+        ) : (
+          <h2 className='col-span-5 text-xl font-semibold text-slate-800 text-center'>
+            No hay ninguna nota que mostrar.
+          </h2>
+        )}
       </div>
-      <Pagination page={page} pageCount={pageCount} update={updatePage} />
+      {!emptyNotes && <Pagination page={page} pageCount={pageCount} update={updatePage} />}
     </>
   );
 }
