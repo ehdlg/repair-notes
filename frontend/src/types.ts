@@ -8,7 +8,7 @@ export type RepairNoteType = {
   model: string;
   malfunction: string;
   entryDate: Date | string;
-  departureDate: Date | null;
+  departureDate: Date | null | string;
   isRepaired: boolean | null;
   details: string | null;
   garanty: boolean | null;
