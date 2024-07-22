@@ -50,6 +50,7 @@ function NoteList() {
                 value={input.value}
                 update={updateFilter}
                 checked={input.value === filter}
+                key={input.label}
               />
             );
           })}
