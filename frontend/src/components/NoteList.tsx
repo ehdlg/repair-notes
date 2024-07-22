@@ -42,7 +42,7 @@ function NoteList() {
     <>
       <div className='mb-8 w-full flex flex-col items-center gap-4 '>
         <h2 className='text-gray-700 text-3xl font-semibold'>Notas de reparación</h2>
-        <div className='flex gap-12 w-fit p-4 rounded items-center self-center border border-gray-200 bg-white text-xl'>
+        <div className='flex flex-col gap-6 md:flex-row md:gap-12 w-fit p-4 rounded items-center self-center border border-gray-200 bg-white text-xl'>
           {FILTER_INPUTS.map((input) => {
             return (
               <Filter
@@ -55,7 +55,7 @@ function NoteList() {
           })}
         </div>
       </div>
-      <div className='grid 2xl:grid-cols-5  grid-cols-3 gap-4 justify-center items-center'>
+      <div className='grid grid-cols-1 m-4 md:grid 2xl:grid-cols-5 xl:m-2  md:grid-cols-3  gap-4 justify-center items-center'>
         {!emptyNotes ? (
           notes.map((note) => {
             return <Note note={note} />;
