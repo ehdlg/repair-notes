@@ -17,10 +17,12 @@ export type RepairNoteType = {
 
 export type RepairNoteKeys = keyof RepairNoteType;
 
+type InputType = 'text' | 'number' | 'checkbox' | 'date' | 'textarea' | 'tel';
+
 export type InputsType = {
   label: string;
   name: RepairNoteKeys;
-  type: 'text' | 'number' | 'checkbox' | 'date' | 'textarea';
+  type: InputType;
   options?: RegisterOptions<RepairNoteType>;
 };
 
