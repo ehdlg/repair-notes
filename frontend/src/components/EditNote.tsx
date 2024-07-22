@@ -25,7 +25,12 @@ function EditNote() {
     return setTimeout(navigate, 100, '/');
   }
 
-  const defaultValues = { ...note, entryDate: formatDateToInput(new Date(note.entryDate)) };
+  const defaultValues = {
+    ...note,
+    entryDate: formatDateToInput(new Date(note.entryDate)),
+    departureDate:
+      null != note.departureDate ? formatDateToInput(new Date(note.departureDate as Date)) : null,
+  };
   const onSubmit: SubmitHandler<RepairNoteType> = async (formData) => {
     try {
       const editedNote = filterNote(formData);
