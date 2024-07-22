@@ -24,7 +24,7 @@ export const CREATE_INPUTS: InputsType[] = [
   {
     label: 'Número de telefono',
     name: 'phoneNumber',
-    type: 'text',
+    type: 'tel',
     options: {
       required: {
         value: true,
