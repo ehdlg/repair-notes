@@ -64,11 +64,8 @@ const RepairNote = sequelize.define<IReparirNote>(
         }
       },
       checkDates() {
-        if (
-          this.departureDate != null &&
-          (this.departureDate as Date) <= (this.entryDate as Date)
-        ) {
-          throw new Error('La fecha de salida no puede ser posterior a la fecha de entrada');
+        if (this.departureDate != null && (this.departureDate as Date) < (this.entryDate as Date)) {
+          throw new Error('La fecha de salida no puede ser anterior a la fecha de entrada');
         }
       },
     },
