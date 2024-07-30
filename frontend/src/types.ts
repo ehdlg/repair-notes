@@ -20,7 +20,7 @@ export type MachineType = {
   model: string;
 };
 
-export type FormType = Omit<Partial<RepairNoteType>, 'model' | 'malfunction'> & {
+export type FormType = Omit<RepairNoteType, 'model' | 'malfunction'> & {
   machines: MachineType[];
 };
 
