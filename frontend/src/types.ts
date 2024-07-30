@@ -15,8 +15,13 @@ export type RepairNoteType = {
   budget: number | null;
 };
 
+export type MachineType = {
+  malfunction: string;
+  model: string;
+};
+
 export type FormType = Omit<Partial<RepairNoteType>, 'model' | 'malfunction'> & {
-  machines: { model: string; malfunction: string }[];
+  machines: MachineType[];
 };
 
 export type RepairNoteKeys = keyof FormType;
