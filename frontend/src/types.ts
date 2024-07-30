@@ -15,7 +15,11 @@ export type RepairNoteType = {
   budget: number | null;
 };
 
-export type RepairNoteKeys = keyof RepairNoteType;
+export type FormType = Omit<Partial<RepairNoteType>, 'model' | 'malfunction'> & {
+  machines: { model: string; malfunction: string }[];
+};
+
+export type RepairNoteKeys = keyof FormType;
 
 type InputType = 'text' | 'number' | 'checkbox' | 'date' | 'textarea' | 'tel';
 
@@ -23,7 +27,7 @@ export type FormInput = {
   label: string;
   name: RepairNoteKeys;
   type: InputType;
-  options?: RegisterOptions<RepairNoteType>;
+  options?: RegisterOptions;
 };
 
 export type FilterType = (typeof ALL_CONDITIONS)[number];
