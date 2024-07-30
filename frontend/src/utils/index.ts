@@ -1,5 +1,5 @@
 import { ALL_CONDITIONS, DEFAULT_PAGE, DEFAULT_SIZE, REQUIRED_VALUES } from '../constants';
-import { RepairNoteKeys, RepairNoteType, FilterType } from '../types';
+import { RepairNoteKeys, RepairNoteType, FilterType, FormType, MachineType } from '../types';
 
 export function calculatePagination(page: number, size: number) {
   page = page > 0 ? page : DEFAULT_PAGE;
@@ -18,7 +18,7 @@ export function formatDateToInput(date: Date) {
   return `${year}-${month}-${day}`;
 }
 
-export function filterNote(note: Partial<RepairNoteType>) {
+export function filterNote(note: RepairNoteType) {
   let values: Partial<RepairNoteType> = {};
 
   for (const [key, value] of Object.entries(note)) {
@@ -36,4 +36,44 @@ export function filterNote(note: Partial<RepairNoteType>) {
 
 export function isFilterType(value: string): value is FilterType {
   return (ALL_CONDITIONS as readonly string[]).includes(value);
+}
+
+export function createNoteFromForm(formData: FormType) {
+  const { machines, ...rest } = formData;
+
+  let model = machines[0].model;
+  let malfunction = machines[0].malfunction;
+
+  for (let i = 1; i < machines.length; i++) {
+    model += `|${machines[i].model}`;
+    malfunction += `|${machines[i].malfunction}`;
+  }
+
+  const note: RepairNoteType = { ...rest, model, malfunction };
+
+  return note;
+}
+
+export function createFormDataFromNote(note: RepairNoteType): FormType {
+  const { model, malfunction, ...rest } = note;
+  const machines: MachineType[] = [];
+
+  const modelArray = model.split('|');
+  const malfunctionArray = malfunction.split('|');
+
+  const limit = Math.min(modelArray?.length, malfunctionArray?.length);
+
+  console.log({ limit, modelArray, malfunctionArray });
+  if (limit === 0) return { ...rest, machines };
+
+  for (let i = 0; i < limit; i++) {
+    machines.push({
+      malfunction: malfunctionArray[i],
+      model: modelArray[i],
+    });
+  }
+
+  const formData: FormType = { ...rest, machines };
+
+  return formData;
 }
