@@ -24,15 +24,15 @@ export type FormType = Omit<Partial<RepairNoteType>, 'model' | 'malfunction'> & 
   machines: MachineType[];
 };
 
-export type RepairNoteKeys = keyof FormType;
+export type FormKeys = keyof FormType;
 
 type InputType = 'text' | 'number' | 'checkbox' | 'date' | 'textarea' | 'tel';
 
 export type FormInput = {
   label: string;
-  name: RepairNoteKeys;
+  name: FormKeys;
   type: InputType;
-  options?: RegisterOptions;
+  options?: RegisterOptions<FormType, FormKeys>;
 };
 
 export type FilterType = (typeof ALL_CONDITIONS)[number];
