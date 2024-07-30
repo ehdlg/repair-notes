@@ -1,4 +1,4 @@
-import { FilterType, FormInput, RepairNoteKeys } from './types';
+import { FilterType, FormInput, FormType, FormKeys } from './types';
 import { formatDateToInput } from './utils';
 
 export const API_URL = import.meta.env.VITE_API_URL;
@@ -31,28 +31,6 @@ export const CREATE_INPUTS: FormInput[] = [
         message: 'El número de teléfono del cliente es obligatorio',
       },
       pattern: { value: /^[0-9]{9}$/, message: 'El número de teléfono debe tener 9 dígitos' },
-    },
-  },
-  {
-    label: 'Máquina/Modelo',
-    name: 'model',
-    type: 'text',
-    options: {
-      required: {
-        value: true,
-        message: 'El nombre de la máquina es obligatorio',
-      },
-    },
-  },
-  {
-    label: 'Avería',
-    name: 'malfunction',
-    type: 'text',
-    options: {
-      required: {
-        value: true,
-        message: 'La avería de la máquina es obligatoria',
-      },
     },
   },
   {
@@ -108,22 +86,21 @@ export const EDIT_INPUTS: FormInput[] = [
   CREATE_INPUTS.find((input) => input.name === 'details')!,
 ];
 
-export const DEFAULT_FORM_VALUES = {
+export const DEFAULT_FORM_VALUES: Partial<FormType> = {
   client: '',
   garanty: false,
   entryDate: formatDateToInput(new Date()),
-  malfunction: '',
   phoneNumber: '',
   details: null,
+  machines: [
+    {
+      malfunction: '',
+      model: '',
+    },
+  ],
 };
 
-export const REQUIRED_VALUES: RepairNoteKeys[] = [
-  'client',
-  'entryDate',
-  'malfunction',
-  'model',
-  'phoneNumber',
-];
+export const REQUIRED_VALUES: FormKeys[] = ['client', 'entryDate', 'machines', 'phoneNumber'];
 
 export const NOTE_LIMIT = 15;
 
