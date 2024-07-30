@@ -5,8 +5,13 @@ import Loading from './Loading';
 import { toast } from 'sonner';
 import { type SubmitHandler } from 'react-hook-form';
 import { API_URL, EDIT_INPUTS } from '../constants';
-import { RepairNoteType } from '../types';
-import { filterNote, formatDateToInput } from '../utils';
+import { FormType, RepairNoteType } from '../types';
+import {
+  createFormDataFromNote,
+  createNoteFromForm,
+  filterNote,
+  formatDateToInput,
+} from '../utils';
 
 function EditNote() {
   const { id } = useParams();
@@ -25,15 +30,21 @@ function EditNote() {
     return setTimeout(navigate, 100, '/');
   }
 
+  const formDataFromNote = createFormDataFromNote(note);
+
   const defaultValues = {
-    ...note,
-    entryDate: formatDateToInput(new Date(note.entryDate)),
+    ...formDataFromNote,
+    entryDate: formatDateToInput(new Date(formDataFromNote.entryDate)),
     departureDate:
-      null != note.departureDate ? formatDateToInput(new Date(note.departureDate as Date)) : null,
+      null != note.departureDate
+        ? formatDateToInput(new Date(formDataFromNote.departureDate as Date))
+        : null,
   };
-  const onSubmit: SubmitHandler<RepairNoteType> = async (formData) => {
+
+  const onSubmit: SubmitHandler<FormType> = async (formData) => {
     try {
-      const editedNote = filterNote(formData);
+      const noteFromForm = createNoteFromForm(formData);
+      const editedNote = filterNote(noteFromForm);
 
       const response = await fetch(URL, {
         method: 'PATCH',

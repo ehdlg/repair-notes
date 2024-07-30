@@ -6,8 +6,8 @@ import PDFDocument from './PDFDocument';
 import { toast } from 'sonner';
 import { type SubmitHandler } from 'react-hook-form';
 import { API_URL, CREATE_INPUTS, DEFAULT_FORM_VALUES } from '../constants';
-import { RepairNoteType } from '../types';
-import { filterNote } from '../utils';
+import { FormType } from '../types';
+import { createNoteFromForm, filterNote } from '../utils';
 
 function CreateNote() {
   const navigate = useNavigate();
@@ -22,9 +22,10 @@ function CreateNote() {
   }, [document, navigate]);
 
   const URL = `${API_URL}/`;
-  const onSubmit: SubmitHandler<RepairNoteType> = async (formData) => {
+  const onSubmit: SubmitHandler<FormType> = async (formData) => {
     try {
-      const newNote = filterNote(formData);
+      const noteFromData = createNoteFromForm(formData);
+      const newNote = filterNote(noteFromData);
       const response = await fetch(URL, {
         method: 'POST',
         body: JSON.stringify(newNote),
