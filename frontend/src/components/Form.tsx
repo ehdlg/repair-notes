@@ -12,6 +12,7 @@ import PDFDocument from './PDFDocument';
 import { CheckIcon, PrinterIcon } from '@heroicons/react/24/outline';
 import { FormInput, FormType } from '../types';
 import { PDFDownloadLink } from '@react-pdf/renderer';
+import { createNoteFromForm } from '../utils';
 
 const Header = ({
   isEdit,
@@ -21,13 +22,14 @@ const Header = ({
   defaultValues: Partial<FormType>;
 }) => {
   const title = isEdit ? `Nota de reparación ${defaultValues.id}` : 'Nueva nota de reparación';
+  const noteToEdit = isEdit ? createNoteFromForm(defaultValues as FormType) : null;
 
   return (
     <div className='border-b border-gray-200 flex justify-between w-full items-center mb-8 '>
       <h2 className='text-md xl:text-2xl text-gray-800 mt-2 pb-4 font-bold '>{title}</h2>
       <div className='mr-2 flex gap-4'>
         {isEdit && (
-          <PDFDownloadLink document={<PDFDocument note={defaultValues} />}>
+          <PDFDownloadLink document={<PDFDocument note={noteToEdit ?? defaultValues} />}>
             {({ loading }) => {
               return (
                 <PrinterIcon

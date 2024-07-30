@@ -18,16 +18,16 @@ const styles = StyleSheet.create({
   dataContainer: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     height: '50vh',
     marginTop: '50px',
   },
   data: {
-    width: '45%',
+    width: '48%',
     padding: '20px',
     border: '2px solid black',
     display: 'flex',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     fontSize: '32px',
   },
   row: {
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: '20px',
     justifyContent: 'space-between',
-    width: '80%',
+    width: '100%',
     marginHorizontal: 'auto',
     gap: '10px',
   },
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   emptyColumn: {
-    width: '45%',
+    width: '48%',
     border: '2px solid black',
     minHeight: 200,
     padding: 20,
@@ -101,11 +101,11 @@ function PDFDocument({ note }: { note: Partial<RepairNoteType> }) {
             </View>
             <View style={styles.row}>
               <Text style={styles.label}>Máquina(s)/Modelo(s):</Text>
-              <Text style={styles.value}>{note.model}</Text>
+              <Text style={styles.value}>{note.model?.split('|').join(', ')}</Text>
             </View>
             <View style={styles.row}>
               <Text style={styles.label}>Avería:</Text>
-              <Text style={styles.value}>{note.malfunction}</Text>
+              <Text style={styles.value}>{note.malfunction?.split('|').join(', ')}</Text>
             </View>
             <View style={styles.row}>
               <Text style={styles.label}>Reparación garantía:</Text>
