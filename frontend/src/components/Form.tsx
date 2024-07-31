@@ -6,10 +6,12 @@ import {
   UseFormRegister,
   FieldArrayWithId,
   FieldErrors,
+  UseFieldArrayAppend,
+  UseFieldArrayRemove,
 } from 'react-hook-form';
 import Input from './Input';
 import PDFDocument from './PDFDocument';
-import { CheckIcon, PrinterIcon } from '@heroicons/react/24/outline';
+import { CheckIcon, PrinterIcon, PlusIcon, MinusIcon } from '@heroicons/react/24/outline';
 import { FormInput, FormType } from '../types';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import { createNoteFromForm } from '../utils';
@@ -29,17 +31,23 @@ const Header = ({
       <h2 className='text-md xl:text-2xl text-gray-800 mt-2 pb-4 font-bold '>{title}</h2>
       <div className='mr-2 flex gap-4'>
         {isEdit && (
-          <PDFDownloadLink document={<PDFDocument note={noteToEdit ?? defaultValues} />}>
-            {({ loading }) => {
-              return (
-                <PrinterIcon
-                  className={`size-10 text-gray-700 border border-gray-200 p-2 rounded hover:border-none hover:text-white hover:bg-gray-700 transition ease-in ${
-                    loading && 'disabled opacity-20 cursor-not-allowed'
-                  }`}
-                />
-              );
-            }}
-          </PDFDownloadLink>
+          <>
+            <PDFDownloadLink document={<PDFDocument note={noteToEdit ?? defaultValues} />}>
+              {({ loading }) => {
+                return (
+                  <PrinterIcon
+                    className={`size-10 text-gray-700 border border-gray-200 p-2 rounded hover:border-none hover:text-white hover:bg-gray-700 transition ease-in ${
+                      loading && 'disabled opacity-20 cursor-not-allowed'
+                    }`}
+                  />
+                );
+              }}
+            </PDFDownloadLink>
+            {/*TODO: add delete function from EditNote component  */}
+            {/* <button type='button' onClick={async () => {}}>
+              Borrar
+            </button> */}
+          </>
         )}
         <button type='submit'>
           <CheckIcon className='size-10 cursor-pointer text-gray-700 border border-gray-200 p-2 rounded hover:border-none hover:text-white hover:bg-gray-700 transition ease-in' />
@@ -53,14 +61,44 @@ const MachinesInputs = ({
   fields,
   register,
   errors,
+  append,
+  remove,
 }: {
   fields: FieldArrayWithId<FormType, 'machines', 'id'>[];
   register: UseFormRegister<FormType>;
   errors: FieldErrors<FormType>;
+  append: UseFieldArrayAppend<FormType, 'machines'>;
+  remove: UseFieldArrayRemove;
 }) => {
+  function addMachine() {
+    append({ malfunction: '', model: '' });
+  }
+
+  function removeMachine(index: number) {
+    return function () {
+      remove(index);
+    };
+  }
+
   return (
     <>
       {fields.map((field, index) => {
+        const firstElement = index === 0;
+        const iconStyles = 'size-6 text-slate-700 hover:scale-125 transition ease-in duration-100';
+        const actionButton = (
+          <button
+            type='button'
+            className='w-fit lg:absolute  lg:right-16 lg:bottom-2'
+            onClick={firstElement ? addMachine : removeMachine(index)}
+          >
+            {firstElement ? (
+              <PlusIcon className={iconStyles} />
+            ) : (
+              <MinusIcon className={iconStyles} />
+            )}
+          </button>
+        );
+
         return (
           <Fragment key={field.id}>
             <div className='flex flex-col gap-1'>
@@ -73,7 +111,7 @@ const MachinesInputs = ({
                 type='text'
               />
             </div>
-            <div className='flex flex-col gap-1 '>
+            <div className='flex flex-col gap-1 relative'>
               <Input
                 label='Avería'
                 register={{
@@ -82,6 +120,7 @@ const MachinesInputs = ({
                 name='machines'
                 type='text'
               />
+              {actionButton}
             </div>
           </Fragment>
         );
@@ -158,7 +197,7 @@ function Form({
     setValue,
     control,
   } = useForm<FormType>({ defaultValues });
-  const { fields, append } = useFieldArray<FormType>({
+  const { fields, append, remove } = useFieldArray<FormType>({
     control,
     name: 'machines',
     rules: {
@@ -183,12 +222,15 @@ function Form({
       onSubmit={handleSubmit(onSubmit)}
       className='flex flex-col bg-white border-gray-200 border-2 p-4 w-11/12 lg:w-1/2 rounded-md m-auto h-auto shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px]'
     >
-      <button type='button' onClick={() => append({ malfunction: '', model: '' })}>
-        apendar
-      </button>
       <Form.Header isEdit={isEdit} defaultValues={defaultValues} />
       <div className='flex flex-col lg:grid lg:grid-cols-2 mx-4 gap-8 mb-12'>
-        <Form.MachinesInputs errors={errors} fields={fields} register={register} />
+        <Form.MachinesInputs
+          errors={errors}
+          fields={fields}
+          register={register}
+          append={append}
+          remove={remove}
+        />
         <Form.GeneralInputs
           inputs={inputs}
           errors={errors}
