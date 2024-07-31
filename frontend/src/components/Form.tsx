@@ -11,7 +11,13 @@ import {
 } from 'react-hook-form';
 import Input from './Input';
 import PDFDocument from './PDFDocument';
-import { CheckIcon, PrinterIcon, PlusIcon, MinusIcon } from '@heroicons/react/24/outline';
+import {
+  CheckIcon,
+  PrinterIcon,
+  PlusIcon,
+  MinusIcon,
+  TrashIcon,
+} from '@heroicons/react/24/outline';
 import { FormInput, FormType } from '../types';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import { createNoteFromForm } from '../utils';
@@ -19,38 +25,43 @@ import { createNoteFromForm } from '../utils';
 const Header = ({
   isEdit,
   defaultValues,
+  deleteNote,
 }: {
   isEdit: boolean;
   defaultValues: Partial<FormType>;
+  deleteNote: null | (() => void);
 }) => {
   const title = isEdit ? `Nota de reparación ${defaultValues.id}` : 'Nueva nota de reparación';
   const noteToEdit = isEdit ? createNoteFromForm(defaultValues as FormType) : null;
+  const iconStyle =
+    'size-10 cursor-pointer text-gray-700 border border-gray-200 p-2 rounded hover:border-none hover:text-white hover:bg-gray-700 transition ease-in';
 
   return (
     <div className='border-b border-gray-200 flex justify-between w-full items-center mb-8 '>
       <h2 className='text-md xl:text-2xl text-gray-800 mt-2 pb-4 font-bold '>{title}</h2>
       <div className='mr-2 flex gap-4'>
+        {null != deleteNote && (
+          <button type='button' onClick={deleteNote}>
+            <TrashIcon className={iconStyle + ' text-red-500 hover:bg-red-500'} />
+          </button>
+        )}
         {isEdit && (
           <>
             <PDFDownloadLink document={<PDFDocument note={noteToEdit ?? defaultValues} />}>
               {({ loading }) => {
                 return (
                   <PrinterIcon
-                    className={`size-10 text-gray-700 border border-gray-200 p-2 rounded hover:border-none hover:text-white hover:bg-gray-700 transition ease-in ${
+                    className={`${iconStyle} ${
                       loading && 'disabled opacity-20 cursor-not-allowed'
                     }`}
                   />
                 );
               }}
             </PDFDownloadLink>
-            {/*TODO: add delete function from EditNote component  */}
-            {/* <button type='button' onClick={async () => {}}>
-              Borrar
-            </button> */}
           </>
         )}
         <button type='submit'>
-          <CheckIcon className='size-10 cursor-pointer text-gray-700 border border-gray-200 p-2 rounded hover:border-none hover:text-white hover:bg-gray-700 transition ease-in' />
+          <CheckIcon className={iconStyle} />
         </button>
       </div>
     </div>
@@ -181,11 +192,13 @@ function Form({
   inputs,
   onSubmit,
   defaultValues,
+  deleteNote = null,
   isEdit = false,
 }: {
   inputs: FormInput[];
   onSubmit: SubmitHandler<FormType>;
   defaultValues: Partial<FormType>;
+  deleteNote?: null | (() => void);
   isEdit?: boolean;
 }) {
   const {
@@ -222,7 +235,7 @@ function Form({
       onSubmit={handleSubmit(onSubmit)}
       className='flex flex-col bg-white border-gray-200 border-2 p-4 w-11/12 lg:w-1/2 rounded-md m-auto h-auto shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px]'
     >
-      <Form.Header isEdit={isEdit} defaultValues={defaultValues} />
+      <Form.Header isEdit={isEdit} defaultValues={defaultValues} deleteNote={deleteNote} />
       <div className='flex flex-col lg:grid lg:grid-cols-2 mx-4 gap-8 mb-12'>
         <Form.MachinesInputs
           errors={errors}
