@@ -233,7 +233,7 @@ function Form({
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className='flex flex-col bg-white border-gray-200 border-2 p-4 w-11/12 lg:w-1/2 rounded-md m-auto h-auto shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px]'
+      className='flex flex-col bg-white border-gray-200 border-2 p-4 w-11/12 2xl:w-1/2 rounded-md m-auto h-auto shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px]'
     >
       <Form.Header isEdit={isEdit} defaultValues={defaultValues} deleteNote={deleteNote} />
       <div className='flex flex-col lg:grid lg:grid-cols-2 mx-4 gap-8 mb-12'>
