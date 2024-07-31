@@ -76,8 +76,28 @@ function EditNote() {
     }
   };
 
+  const deleteNote = async () => {
+    if (!confirm('¿Seguro que quieres borrar la nota?')) return;
+
+    const response = await fetch(URL, {
+      method: 'DELETE',
+    });
+
+    if (response.status !== 200) return toast.error(`No se pudo borrar la nota ${id}`);
+
+    toast.success(`Nota ${id} borrada`);
+
+    return setTimeout(navigate, 100, '/');
+  };
+
   return (
-    <Form onSubmit={onSubmit} defaultValues={defaultValues} inputs={EDIT_INPUTS} isEdit={true} />
+    <Form
+      onSubmit={onSubmit}
+      defaultValues={defaultValues}
+      inputs={EDIT_INPUTS}
+      isEdit={true}
+      deleteNote={deleteNote}
+    />
   );
 }
 
